@@ -142,9 +142,28 @@ a{
     text-decoration: none;
 }
 
+body{
+    background-color: var(--main-color);
+}
 
 *{ 
 	box-sizing: border-box;
+    margin: 0;
+
+    //fonts
+    
+    //font-family: 'Oswald', sans-serif;
+    //font-family: 'Passion One', cursive;
+    font-family: 'Lato', sans-serif;
+
+    //colors
+
+    --main-color: #333333;
+    --heavy-background: #171717;
+    --light-background: #EFEFEF;
+    --light-text: #707070;
+    --heavy-text: #FFFFFF;
+
 }
 
 `;
