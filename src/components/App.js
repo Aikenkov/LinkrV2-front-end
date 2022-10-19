@@ -1,7 +1,16 @@
+import GlobalStyles from "../styles/GlobalStyles";
+
 function App() {
-  return (
-    <h1>Ola</h1>
-  );
+    return (
+        <>
+            <GlobalStyles />
+            <BrowserRouter>
+                <Routes>
+                    <Route path='/' element={<LoginPage />}></Route>
+                </Routes>
+            </BrowserRouter>
+        </>
+    );
 }
 
 export default App;
