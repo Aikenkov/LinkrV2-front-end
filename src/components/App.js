@@ -1,4 +1,6 @@
 import GlobalStyles from "../styles/GlobalStyles";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./HomePage";
 
 function App() {
     return (
@@ -6,7 +8,7 @@ function App() {
             <GlobalStyles />
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<LoginPage />}></Route>
+                    <Route path='/home' element={<Home />}></Route>
                 </Routes>
             </BrowserRouter>
         </>
