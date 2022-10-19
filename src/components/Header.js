@@ -11,6 +11,9 @@ export default function Header() {
 
 const Wrapper = styled.div`
     display: flex;
+    position: fixed;
+    left: 0;
+    top: 0;
     justify-content: space-between;
     background-color: var(--heavy-background);
     width: 100vw;
