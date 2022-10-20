@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
+import styled from "styled-components";
+import Trending from "../home/Trending";
+import Timeline from "../timeline/Timeline";
 
 export default function UserPosts(){
     const { id } = useParams();
@@ -9,16 +12,26 @@ export default function UserPosts(){
     const [user,setUser] = useState({});
     useEffect(() => {
         console.log("Entrei no use effect")
-        const userPromisse = axios.get(`http://localhost:4489/users/${id}`);
+        const userPromisse = axios.get(`http://localhost:4000/users/${id}`);
         userPromisse.then(p => setUser({...p.data}));
         userPromisse.catch(p=> {alert("Este usuario não existe"); navigate("/home")});
-        const postsPromisse = axios.get(`http://localhost:4489/user/${id}`);
+        const postsPromisse = axios.get(`http://localhost:4000/user/${id}`);
         postsPromisse.then(p => setPosts([...p.data]));
     },[]);
     return(
-        <>
-                <img src={user?.picture}/>
-                <h1>{user?.username}</h1>
-        </>
+        <Wrapper>
+            <h1>{user?.name}'s Page</h1>
+            <Timeline/>
+        </Wrapper>
     )
 }
+
+
+const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+
+    h1 {
+        color: black;
+    }
+`;

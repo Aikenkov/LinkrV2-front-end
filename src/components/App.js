@@ -11,7 +11,7 @@ import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
 import Header from "./Header";
-import UserPosts from "./UserPosts";
+import UserPosts from "./UserPosts/UserPosts";
 import Home from "./home/HomePage";
 
 function App() {
@@ -49,7 +49,16 @@ function App() {
                             )
                         }
                     />
-                    <Route path='/user/:id' element={ <UserPosts />}></Route>
+                    <Route path='/user/:id' element={
+                            loggedUser ? (
+                                <>
+                                    <Header />
+                                    <UserPosts />
+                                </>
+                            ) : (
+                                <Navigate replace to={"/"} />
+                            )
+                        }></Route>
                 </Routes>
             </UserContext.Provider>
         </>
