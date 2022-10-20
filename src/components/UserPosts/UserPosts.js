@@ -3,7 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import styled from "styled-components";
 import Trending from "../home/Trending";
-import Timeline from "../timeline/Timeline";
+import Timeline from "../home/Timeline";
+import { getUser, getUserPosts } from "../Service/api";
 
 export default function UserPosts(){
     const { id } = useParams();
@@ -12,26 +13,50 @@ export default function UserPosts(){
     const [user,setUser] = useState({});
     useEffect(() => {
         console.log("Entrei no use effect")
-        const userPromisse = axios.get(`http://localhost:4000/users/${id}`);
+        const userPromisse = getUser(id);
         userPromisse.then(p => setUser({...p.data}));
         userPromisse.catch(p=> {alert("Este usuario não existe"); navigate("/home")});
-        const postsPromisse = axios.get(`http://localhost:4000/user/${id}`);
+        const postsPromisse = getUserPosts(id);
         postsPromisse.then(p => setPosts([...p.data]));
     },[]);
     return(
         <Wrapper>
-            <h1>{user?.name}'s Page</h1>
-            <Timeline/>
+            <Page>
+                <div>
+                    <img src={user?.picture}/>
+                    <h1>{user?.username}'s posts </h1>
+                </div>
+            </Page>
+                <Trending />
         </Wrapper>
-    )
-}
 
+    );
+}
 
 const Wrapper = styled.div`
     display: flex;
     justify-content: center;
+`;
 
-    h1 {
-        color: black;
+const Page = styled.div`
+    width: 40vw;
+    max-width: 611px;
+    margin-right: 25px;
+    margin-top: 125px;
+    display: flex;
+    div{
+        display: flex;
+        img {
+            width: 53px;
+            height: 53px;
+            border-radius: 50%;
+            margin-right: 17px;
+        }
+        h1 {
+            font-family: "Oswald", sans-serif;
+            font-size: 43px;
+            font-weight: 700;
+            color: var(--heavy-text);
+        }
     }
 `;
