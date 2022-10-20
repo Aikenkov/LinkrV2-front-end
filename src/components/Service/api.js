@@ -25,6 +25,6 @@ export function postSignIn(body) {
 
 export function postPublish(body) {
     const config = createHeaders();
-    const promise = axios.post(`${URL}/publish`, config);
+    const promise = axios.post(`${URL}/publish`, body, config);
     return promise;
 }

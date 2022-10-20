@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { ToastContainer, toast } from "react-toastify";
 import { postPublish } from "../Service/api";
 export default function NewPost() {
     const [form, setForm] = useState({
@@ -30,6 +31,7 @@ export default function NewPost() {
             .catch((err) => {
                 setTimeout(() => setIsLoading(false), 1000);
                 console.log("deu ruim");
+                toast.error("Houve um erro ao publicar seu link");
             });
     }
 
@@ -38,6 +40,7 @@ export default function NewPost() {
             <div>
                 <img src={image} />
             </div>
+            <ToastContainer />
             {isloading ? (
                 <button disabled={isloading}>
                     <p>Publishing...</p>
