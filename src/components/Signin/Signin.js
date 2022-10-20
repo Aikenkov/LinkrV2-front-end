@@ -14,11 +14,11 @@ export default function SignIn() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const { users, setUsers } = useContext(UserContext);
+    const { users, setUsers, setLoggedUser } = useContext(UserContext);
     const [isloading, setIsLoading] = useState(false)
     console.log("comecei ")
 
-
+   
 
     function confirmLogin(e) {
 
@@ -35,11 +35,13 @@ export default function SignIn() {
             setUsers(response.data);
             const serializedUser = JSON.stringify(response.data);
             localStorage.setItem("userLinkr", serializedUser);
+            setLoggedUser(response.data)
+
             toast.success("Tudo certo!! :)");
             setTimeout(() => {
                 console.log('entrei no setTimeout')
                 navigate('/timeline');
-            }, 2000)
+            }, 2000);
         })
         .catch((err) => {
             setIsLoading(false)
@@ -114,10 +116,12 @@ const Logo = styled.div`
     padding-left:120px ;
     flex-direction:column;
     justify-content:center ;
+    z-index:1;
 `
 const Page = styled.div`
         height:100vh;
         display:flex ;
+      
     `;
 
 const FormPage = styled.div`
@@ -128,6 +132,7 @@ const FormPage = styled.div`
     align-items:center;
     background-color:#333333 ;
     height:100% ;
+    z-index:1 ;
     `
 const Input = styled.input`
     background: #FFFF;

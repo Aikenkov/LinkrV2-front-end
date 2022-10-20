@@ -131,6 +131,7 @@ const Logo = styled.div`
     padding-left:120px ;
     flex-direction:column;
     justify-content:center ;
+    z-index:1 ;
 `
 const Page = styled.div`
         height:100vh;
@@ -145,6 +146,7 @@ const FormPage = styled.div`
     align-items:center;
     background-color:#333333 ;
     height:100% ;
+    z-index:1 ;
     `
 const Input = styled.input`
     background: #FFFF;

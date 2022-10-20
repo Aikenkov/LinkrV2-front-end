@@ -16,7 +16,7 @@ function App() {
     const [users, setUsers] = useState();
     return (
         <>
-        <UserContext.Provider value={{ users, setUsers}}>
+        <UserContext.Provider value={{ users, setUsers, setLoggedUser}}>
             <GlobalStyles />
             <Header />
             <Routes location={location} key={location.pathname}>
