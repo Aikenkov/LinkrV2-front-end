@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
-
+import { postPublish } from "../Service/api";
 export default function NewPost() {
     const [form, setForm] = useState({
         link: "",
         text: "",
     });
-    const buttonText = "publish";
+    const [isloading, setIsLoading] = useState(false);
+    const image = localStorage.getItem("image");
 
     function handleForm(e) {
         setForm({
@@ -15,15 +16,41 @@ export default function NewPost() {
         });
     }
 
+    function publish() {
+        setIsLoading(true);
+        console.log(form);
+        postPublish(form)
+            .then((res) => {
+                setIsLoading(false);
+                setForm({
+                    link: "",
+                    text: "",
+                });
+            })
+            .catch((err) => {
+                setTimeout(() => setIsLoading(false), 1000);
+                console.log("deu ruim");
+            });
+    }
+
     return (
         <Wrapper>
             <div>
-                <img src='https://i.pinimg.com/736x/f8/f3/01/f8f301698392ee89abd583fe98c83a54.jpg' />
+                <img src={image} />
             </div>
-            <button>{buttonText}</button>
+            {isloading ? (
+                <button disabled={isloading}>
+                    <p>Publishing...</p>
+                </button>
+            ) : (
+                <button onClick={publish}>
+                    <p>Publish</p>
+                </button>
+            )}
             <div>
-                <p>What are you going to share today?</p>
+                <h3>What are you going to share today?</h3>
                 <textarea
+                    disabled={isloading}
                     type='url'
                     placeholder='link'
                     name='link'
@@ -31,6 +58,7 @@ export default function NewPost() {
                     value={form.link}
                 ></textarea>
                 <textarea
+                    disabled={isloading}
                     type='text'
                     placeholder='text'
                     name='text'
@@ -70,7 +98,7 @@ const Wrapper = styled.div`
         padding: 21px 21px 0 0;
     }
 
-    p {
+    h3 {
         font-size: 20px;
         font-weight: 300;
         color: var(--light-text);
@@ -88,6 +116,12 @@ const Wrapper = styled.div`
         background-color: #1877f2;
         border: none;
         border-radius: 5px;
+        text-align: center;
+
+        :hover {
+            filter: brightness(1.2);
+            cursor: pointer;
+        }
     }
 
     textarea {

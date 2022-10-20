@@ -1,10 +1,12 @@
 import styled from "styled-components";
 
 export default function Header() {
+    const image = localStorage.getItem("image");
+
     return (
         <Wrapper>
             <h1>linkr</h1>
-            <img src='https://i.pinimg.com/736x/f8/f3/01/f8f301698392ee89abd583fe98c83a54.jpg' />
+            <img src={image} />
         </Wrapper>
     );
 }
