@@ -28,3 +28,14 @@ export function postPublish(body) {
   const promise = axios.post(`${URL}/publish`, body, config);
   return promise;
 }
+
+export function getTimeline() {
+  const config = createHeaders();
+  const promise = axios.get(`${URL}/timeline`, config);
+  return promise;
+}
+
+export function postMetadata(body) {
+  const promise = axios.post(`${URL}/metadata`, body);
+  return promise;
+}
