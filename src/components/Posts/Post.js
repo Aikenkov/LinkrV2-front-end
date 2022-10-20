@@ -1,12 +1,19 @@
 import { useEffect, useState, React } from "react";
 import { postMetadata } from "../Service/api";
+import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
+import { DeleteIcon } from "../common/Icons";
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
 export default function Post({ post }) {
   const [metadataUrl, setMetadaUrl] = useState([]);
-  const { username, picture, text, link } = post;
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const { username, picture, text, link, id } = post;
   const body = { url: link };
+
+  const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
   useEffect(() => {
     postMetadata(body)
@@ -18,18 +25,45 @@ export default function Post({ post }) {
       });
   }, []);
 
+  function deletePost() {
+    setIsOpen(true);
+  }
+
   return (
-    <PostContainer>
-      <Img src={picture} alt="perfil" />
+    <>
+      {modalIsOpen ? (
+        <ModalContainer
+          modalIsOpen={modalIsOpen}
+          setIsOpen={setIsOpen}
+          id={id}
+        />
+      ) : null}
 
-      <span>
-        <span>{username}</span>
+      <PostContainer>
+        <Img src={picture} alt="perfil" />
 
-        <p>{text}</p>
+        <span>
+          {myUsername === username ? (
+            <MyUserDelete>
+              <span>{username}</span>
+              <div>
+                <DeleteIcon onClick={deletePost} />
+              </div>
+            </MyUserDelete>
+          ) : (
+            <span>{username}</span>
+          )}
 
-        <LinkPreview metadaUrl={metadataUrl} />
-      </span>
-    </PostContainer>
+          <p>{text}</p>
+
+          {metadataUrl.length === 0 ? (
+            <ThreeDots color={"#B7B7B7"} height={70} width={50} />
+          ) : (
+            <LinkPreview metadaUrl={metadataUrl} />
+          )}
+        </span>
+      </PostContainer>
+    </>
   );
 }
 
@@ -57,5 +91,14 @@ const PostContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     direction: ltr;
+  }
+`;
+
+const MyUserDelete = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    cursor: pointer;
   }
 `;
