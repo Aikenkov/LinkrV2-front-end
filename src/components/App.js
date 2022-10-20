@@ -6,6 +6,7 @@ import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
 import Timeline from "./timeline/Timeline";
+import Header from "./Header";
 
 function App() {
     const location = useLocation();
@@ -17,13 +18,13 @@ function App() {
         <>
         <UserContext.Provider value={{ users, setUsers}}>
             <GlobalStyles />
-         
-                <Routes location={location} key={location.pathname}>
-                    <Route path='/home' element={<Home />}></Route>
-                    <Route path="/sign-up/" element={<SignUp />} />
-                    <Route path="/" element={loggedUser ?  <Navigate replace to={'/timeline'}/> : <SignIn/> }/>
-                    <Route path="/timeline" element ={loggedUser ? <Timeline/> : <Navigate replace to={'/'}/>}/>
-                </Routes>
+            <Header />
+            <Routes location={location} key={location.pathname}>
+                <Route path='/home' element={<Home />}></Route>
+                <Route path="/sign-up/" element={<SignUp />} />
+                <Route path="/" element={loggedUser ?  <Navigate replace to={'/timeline'}/> : <SignIn/> }/>
+                <Route path="/timeline" element ={loggedUser ? <Timeline/> : <Navigate replace to={'/'}/>}/>
+            </Routes>
            
         </UserContext.Provider>
         </>
