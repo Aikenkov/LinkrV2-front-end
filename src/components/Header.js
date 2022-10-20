@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "./contexts/userContexts";
 
 export default function Header() {
     const [logout, setLogout] = useState(true);
     const [icon, setIcon] = useState("chevron-down-outline");
     const navigate = useNavigate();
+    const {setLoggedUser } = useContext(UserContext);
 
     function toggleLogOut(resposta) {
         if (resposta === "logged") {
@@ -17,9 +19,13 @@ export default function Header() {
             setLogout(true);
         }
     }
-    function logoutUser() {
-        localStorage.removeItem("userLinkr");
-        navigate("/");
+
+    function logoutUser (){
+        localStorage.removeItem('userLinkr');
+        setLoggedUser();
+        setLogout(true);
+        navigate('/');
+
     }
     return (
         <>
