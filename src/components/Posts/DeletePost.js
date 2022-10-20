@@ -44,11 +44,11 @@ export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
           </Confirm>
         ) : (
           <Confirm>
-            <h1>Tem certeza que deseja deletar seu post?</h1>
+            <h1>Are you sure you want to delete this post?</h1>
 
             <div>
-              <button onClick={deletePostConfirm}>Sim</button>
-              <button onClick={closeModal}>Não</button>
+              <ButtonNo onClick={closeModal}>No, go back</ButtonNo>
+              <ButtonYes onClick={deletePostConfirm}>Yes, delete it</ButtonYes>
             </div>
           </Confirm>
         )}
@@ -63,17 +63,18 @@ const customStyles = {
     left: "50%",
     right: "auto",
     bottom: "auto",
-    width: "25%",
-    height: "12%",
+    width: "597px",
+    height: "262px",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    "border-radius": "15px",
+    "border-radius": "50px",
+    "background-color": "#333333",
   },
 };
 
 const Confirm = styled.h1`
   font-family: Lato;
-  font-size: 18px;
+  font-size: 34px;
   font-weight: 700;
   display: flex;
   flex-direction: column;
@@ -81,20 +82,33 @@ const Confirm = styled.h1`
   align-items: center;
 
   h1 {
-    margin-bottom: 8px;
-    margin-top: 8px;
+    margin-top: 20px;
+    color: #ffffff;
+    width: 350px;
+    text-align: center;
+    line-height: 40px;
+    margin-bottom: 30px;
   }
 
   button {
-    margin: 5px 2.5px;
-    background-color: #1877f2;
-    color: white;
+    margin: 5px 13px;
     font-family: Lato;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: 700;
     border-radius: 5px;
     border: none;
-    width: 60px;
-    height: 28px;
     cursor: pointer;
+    width: 135px;
+    height: 40px;
   }
+`;
+
+const ButtonNo = styled.button`
+  background-color: #ffffff;
+  color: #1877f2;
+`;
+
+const ButtonYes = styled.button`
+  background-color: #1877f2;
+  color: #ffffff;
 `;

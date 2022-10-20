@@ -3,6 +3,7 @@ import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
 import { DeleteIcon } from "../common/Icons";
+import { ThreeDots } from "react-loader-spinner";
 import styled from "styled-components";
 
 export default function Post({ post }) {
@@ -31,7 +32,11 @@ export default function Post({ post }) {
   return (
     <>
       {modalIsOpen ? (
-        <ModalContainer modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} id={id}/>
+        <ModalContainer
+          modalIsOpen={modalIsOpen}
+          setIsOpen={setIsOpen}
+          id={id}
+        />
       ) : null}
 
       <PostContainer>
@@ -51,7 +56,11 @@ export default function Post({ post }) {
 
           <p>{text}</p>
 
-          <LinkPreview metadaUrl={metadataUrl} />
+          {metadataUrl.length === 0 ? (
+            <ThreeDots color={"#B7B7B7"} height={70} width={50} />
+          ) : (
+            <LinkPreview metadaUrl={metadataUrl} />
+          )}
         </span>
       </PostContainer>
     </>
