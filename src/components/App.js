@@ -1,7 +1,7 @@
 import GlobalStyles from "../styles/GlobalStyles";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import Home from "./HomePage";
-import SignUp from "./Signup/Signup.js";
+import SignUp from "./Signup/Signup";
 import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
