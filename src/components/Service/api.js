@@ -40,3 +40,10 @@ export function postMetadata(body) {
   const promise = axios.post(`${URL}/metadata`, body);
   return promise;
 }
+
+export function deletePost(id) {
+    const config = createHeaders();
+
+    const promise = axios.delete(`${URL}/posts/${id}`, config);
+    return promise;
+  }
