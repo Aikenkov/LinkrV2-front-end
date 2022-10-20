@@ -6,7 +6,7 @@ export default function UserPosts(){
     const { id } = useParams();
     const [userData, setUserData] = useState([]);
     useEffect(() => {
-        const promisse = axios.get('http://localhost:4489/users/1');
+        const promisse = axios.get(`http://localhost:4489/users/${id}`);
         promisse.then(p => setUserData([...p.data]));
     },[]);
     console.log('Renderizando',userData);
