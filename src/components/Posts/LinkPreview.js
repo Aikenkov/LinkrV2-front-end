@@ -18,6 +18,19 @@ export default function LinkPreview({ metadaUrl }) {
   );
 }
 
+const MetadataImage = styled.a`
+  display: flex;
+
+  img {
+    width: 153px;
+    height: 155px;
+    border: none;
+    border-radius: 0px 11px 11px 0px;
+    margin-top: 10px;
+    object-fit: cover;
+  }
+`;
+
 const Metadata = styled.div`
   width: 350px;
   height: 155px;
@@ -60,18 +73,5 @@ const Metadata = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     direction: ltr;
-  }
-`;
-
-const MetadataImage = styled.a`
-  display: flex;
-
-  img {
-    width: 153px;
-    height: 155px;
-    border: none;
-    border-radius: 0px 11px 11px 0px;
-    margin-top: 10px;
-    object-fit: cover;
   }
 `;

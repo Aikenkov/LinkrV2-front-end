@@ -38,6 +38,11 @@ const NoPosts = styled.h2`
   color: #ffffff;
   font-family: Lato;
   font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  font-weight: 400;
 `;
 
 const Wrapper = styled.div`
@@ -47,7 +52,6 @@ const Wrapper = styled.div`
   align-items: center;
   color: #ffffff;
   font-family: Lato;
-
 
   span {
     font-size: 19px;

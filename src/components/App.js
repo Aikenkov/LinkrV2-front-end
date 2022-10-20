@@ -27,10 +27,14 @@ function App() {
           <Route
             path="/home"
             element={
-              <>
-                <Header />
-                <Home />
-              </>
+              loggedUser ? (
+                <>
+                  <Header />
+                  <Home />
+                </>
+              ) : (
+                <Navigate replace to={"/"} />
+              )
             }
           />
           <Route path="/sign-up/" element={<SignUp />} />

@@ -1,10 +1,10 @@
 import axios from "axios";
 
 function createHeaders() {
-  const auth = JSON.parse(localStorage.getItem("userLinkr"))?.token;
+  const auth = JSON.parse(localStorage.getItem("userLinkr")).token;
   const config = {
     headers: {
-      Authorization: `Bearer 1234567`,
+      Authorization: `Bearer ${auth}`,
     },
   };
   return config;
@@ -26,16 +26,5 @@ export function postSignIn(body) {
 export function postPublish(body) {
   const config = createHeaders();
   const promise = axios.post(`${URL}/publish`, body, config);
-  return promise;
-}
-
-export function getTimeline() {
-  const config = createHeaders();
-  const promise = axios.get(`${URL}/timeline`, config);
-  return promise;
-}
-
-export function postMetadata(body) {
-  const promise = axios.post(`${URL}/metadata`, body);
   return promise;
 }
