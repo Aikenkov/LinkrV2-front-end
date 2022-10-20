@@ -11,6 +11,8 @@ import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
 import Header from "./Header";
+import UserPosts from "./UserPosts/UserPosts";
+import PrivateRoute from "./PrivateRoute";
 import Home from "./home/HomePage";
 
 function App() {
@@ -30,14 +32,9 @@ function App() {
                     <Route
                         path='/home'
                         element={
-                            loggedUser ? (
-                                <>
-                                    <Header />
-                                    <Home />
-                                </>
-                            ) : (
-                                <Navigate replace to={"/"} />
-                            )
+                            <PrivateRoute>
+                                <Home />
+                            </PrivateRoute>
                         }
                     />
                     <Route path='/sign-up/' element={<SignUp />} />
@@ -51,6 +48,14 @@ function App() {
                             )
                         }
                     />
+                    <Route
+                        path='/user/:id'
+                        element={
+                            <PrivateRoute>
+                                <UserPosts />
+                            </PrivateRoute>
+                        }
+                    ></Route>
                 </Routes>
             </UserContext.Provider>
         </>
