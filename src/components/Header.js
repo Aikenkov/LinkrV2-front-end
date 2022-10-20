@@ -7,7 +7,8 @@ export default function Header() {
     const [logout, setLogout] = useState(true);
     const [icon, setIcon] = useState("chevron-down-outline");
     const navigate = useNavigate();
-    const {setLoggedUser } = useContext(UserContext);
+    const { setLoggedUser } = useContext(UserContext);
+    const image = JSON.parse(localStorage.getItem("userLinkr")).url;
 
     function toggleLogOut(resposta) {
         if (resposta === "logged") {
@@ -20,12 +21,11 @@ export default function Header() {
         }
     }
 
-    function logoutUser (){
-        localStorage.removeItem('userLinkr');
+    function logoutUser() {
+        localStorage.removeItem("userLinkr");
         setLoggedUser();
         setLogout(true);
-        navigate('/');
-
+        navigate("/");
     }
     return (
         <>
@@ -39,7 +39,7 @@ export default function Header() {
                         ></ion-icon>
                         <img
                             onClick={() => toggleLogOut("logged")}
-                            src='https://i.pinimg.com/736x/f8/f3/01/f8f301698392ee89abd583fe98c83a54.jpg'
+                            src={image}
                         />
                     </UserLogOUt>
                 </Wrapper>
@@ -54,7 +54,7 @@ export default function Header() {
                             ></ion-icon>
                             <img
                                 onClick={() => toggleLogOut("g")}
-                                src='https://i.pinimg.com/736x/f8/f3/01/f8f301698392ee89abd583fe98c83a54.jpg'
+                                src={image}
                             />
                         </UserLogOUt>
                     </Wrapper>
@@ -86,6 +86,7 @@ const Wrapper = styled.div`
         height: 53px;
         border-radius: 50%;
         margin-right: 17px;
+        object-fit: cover;
     }
 
     h1 {

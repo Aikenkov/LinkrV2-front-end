@@ -1,14 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import { postPublish } from "../Service/api";
+import UserContext from "../contexts/userContexts";
 export default function NewPost() {
+    const { reload, setReload } = useContext(UserContext);
     const [form, setForm] = useState({
         link: "",
         text: "",
     });
     const [isloading, setIsLoading] = useState(false);
-    const image = localStorage.getItem("image");
+    const image = JSON.parse(localStorage.getItem("userLinkr")).url;
+    const validUrl = new RegExp(
+        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%.\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%\+.~#?&\/=]*)$/
+    );
 
     function handleForm(e) {
         setForm({
@@ -19,10 +24,16 @@ export default function NewPost() {
 
     function publish() {
         setIsLoading(true);
-        console.log(form);
+
+        if (!validUrl.test(form.link)) {
+            toast.error("Houve um erro ao publicar seu link");
+            setTimeout(() => setIsLoading(false), 1000);
+            return;
+        }
         postPublish(form)
             .then((res) => {
                 setIsLoading(false);
+                setReload(reload + 1);
                 setForm({
                     link: "",
                     text: "",
@@ -30,7 +41,6 @@ export default function NewPost() {
             })
             .catch((err) => {
                 setTimeout(() => setIsLoading(false), 1000);
-                console.log("deu ruim");
                 toast.error("Houve um erro ao publicar seu link");
             });
     }
@@ -90,6 +100,7 @@ const Wrapper = styled.div`
         border-radius: 50%;
         height: 50px;
         width: 50px;
+        object-fit: cover;
     }
 
     & > :first-child {
