@@ -7,8 +7,8 @@ function App() {
     return (
         <>
             <GlobalStyles />
-            <Header />
             <BrowserRouter>
+                <Header/>
                 <Routes>
                     <Route path='/home' element={<Home />}></Route>
                 </Routes>
