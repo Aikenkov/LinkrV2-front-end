@@ -40,3 +40,14 @@ export function postMetadata(body) {
   const promise = axios.post(`${URL}/metadata`, body);
   return promise;
 }
+
+export function getUser(id){
+    const promise = axios.get(`http://localhost:4000/users/${id}`);
+    return promise;
+}
+
+export function getUserPosts(id){
+    const config = createHeaders();
+    const promise = axios.get(`http://localhost:4000/user/${id}`, config);
+    return promise;
+}

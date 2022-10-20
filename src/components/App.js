@@ -11,7 +11,8 @@ import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
 import Header from "./Header";
-import UserPosts from "./UserPosts";
+import UserPosts from "./UserPosts/UserPosts";
+import PrivateRoute from "./PrivateRoute";
 import Home from "./home/HomePage";
 
 function App() {
@@ -26,26 +27,27 @@ function App() {
         <GlobalStyles />
         <Routes location={location} key={location.pathname}>
           <Route
-            path="/home"
+            path='/home'
+            element={<PrivateRoute>
+                      <Home/>
+                     </PrivateRoute>
+            }
+          />
+          <Route path='/sign-up/' element={<SignUp />} />
+          <Route
+            path='/'
             element={
               loggedUser ? (
-                <>
-                  <Header />
-                  <Home />
-                </>
+                <Navigate replace to={"/home"} />
               ) : (
-                <Navigate replace to={"/"} />
+                <SignIn />
               )
             }
           />
-          <Route path="/sign-up/" element={<SignUp />} />
-          <Route
-            path="/"
-            element={
-              loggedUser ? <Navigate replace to={"/home"} /> : <SignIn />
-            }
-          />
-            <Route path='/user/:id' element={ <UserPosts />}></Route>
+          <Route path='/user/:id' element={<PrivateRoute>
+                                            <UserPosts />
+                                          </PrivateRoute>}>
+          </Route>
         </Routes>
       </UserContext.Provider>
     </>
