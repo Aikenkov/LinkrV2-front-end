@@ -31,6 +31,7 @@ export function postPublish(body) {
 
 export function getTimeline() {
   const config = createHeaders();
+
   const promise = axios.get(`${URL}/timeline`, config);
   return promise;
 }
