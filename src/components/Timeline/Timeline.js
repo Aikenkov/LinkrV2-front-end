@@ -1,59 +1,93 @@
+import { useEffect, useState, React } from "react";
 import styled from "styled-components";
-import picture from "../Timeline/image 4.png";
+import { postMetadata, getTimeline } from "../../services/linkr";
 
 export default function Timeline() {
+  const [post, setPost] = useState([]);
+  const [message, setMessage] = useState("Loading...");
 
-  return (
-    <>
-      <Wrapper>
-        <Post>
-          <img
-            src={
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvIkGpmypTxbmM5WrEA4LDpEfvfcQvgoP1bg&usqp=CAU"
-            }
-            alt="perfil"
-          />
+  useEffect(() => {
+    getTimeline()
+      .catch(() => {
+        setMessage(
+          "An error occured while trying to fetch the posts, please refresh the page"
+        );
+      })
+      .then((response) => {
+        setPost(response.data);
 
-          <span>
-            <span>Juvenal Juvêncio</span>
+        if (response.data.length === 0) {
+          setMessage("There are no posts yet");
+        }
+      });
+  }, []);
 
-            <p>
-              Muito maneiro esse tutorial de Material UI com React, deem uma
-              olhada!
-            </p>
-
-            <MetadataImg />
-          </span>
-        </Post>
-      </Wrapper>
-    </>
+  return post.length === 0 ? (
+    <NoPosts>{message}</NoPosts>
+  ) : (
+    <Wrapper>
+      {post.map((posts) => (
+        <Time key={posts.id} post={posts} />
+      ))}
+    </Wrapper>
   );
 }
 
-function MetadataImg() {
-  return (
-    <MetadataImage
-      href="https://medium.com/@pshrmn/a-simple-react-router"
-      target="_blank"
-    >
-      <Metadata>
-        <h6>Como aplicar o Material UI em um projeto React</h6>
-        <p>
-          Hey! I have moved this tutorial to my personal blog. Same content, new
-          location. Sorry about making you click through to another page.
-        </p>
+function Time({ post }) {
+  const [metadataUrl, setMetadaUrl] = useState([]);
+  const { username, picture, text, link } = post;
+  const body = { url: link };
 
-        <h5>https://medium.com/@pshrmn/a-simple-react-router</h5>
+  useEffect(() => {
+    postMetadata(body)
+      .catch((response) => {
+        console.log(response);
+      })
+      .then((response) => {
+        setMetadaUrl(response.data);
+      });
+  }, []);
+
+  return (
+    <Wrapper>
+      <Post>
+        <img src={picture} alt="perfil" />
+
+        <span>
+          <span>{username}</span>
+
+          <p>{text}</p>
+
+          <MetadataImg metadaUrl={metadataUrl} />
+        </span>
+      </Post>
+    </Wrapper>
+  );
+}
+
+function MetadataImg({ metadaUrl }) {
+  const { title, description, link, image } = metadaUrl;
+
+  return (
+    <MetadataImage href={link} target="_blank">
+      <Metadata>
+        <h6>{title}</h6>
+        <p>{description}</p>
+
+        <h5>{link}</h5>
       </Metadata>
-      <img src={picture} />
+      <img src={image} alt="ola" />
     </MetadataImage>
   );
 }
 
+const NoPosts = styled.h2`
+  color: #ffffff;
+  font-family: Lato;
+  font-size: 20px;
+`;
+
 const Wrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  background-color: #333333;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -82,11 +116,21 @@ const Wrapper = styled.div`
 
 const Post = styled.div`
   width: 611px;
-  height: 276px;
+  height: fit-content;
   background-color: #171717;
   border-radius: 16px;
   display: flex;
   padding: 19px;
+  margin-top: 16px;
+
+  p {
+    margin-top: 8px;
+    height: fit-content;
+    white-space: wrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: ltr;
+  }
 `;
 
 const Metadata = styled.div`
@@ -97,13 +141,17 @@ const Metadata = styled.div`
   border-right: 0px;
   border-bottom: solid 1px #4d4d4d;
   border-radius: 11px 0px 0px 11px;
-  margin-top: 16px;
+  margin-top: 10px;
   padding: 20px 19px;
   line-height: 19px;
 
   h6 {
     font-size: 16px;
     color: #cecece;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: ltr;
   }
 
   p {
@@ -116,6 +164,10 @@ const Metadata = styled.div`
     font-size: 11px;
     color: #cecece;
     margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: ltr;
   }
 `;
 
@@ -127,6 +179,6 @@ const MetadataImage = styled.a`
     height: 155px;
     border: none;
     border-radius: 0px 11px 11px 0px;
-    margin-top: 16px;
+    margin-top: 10px;
   }
 `;

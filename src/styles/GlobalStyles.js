@@ -33,6 +33,11 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	width: 100vw;
+	height: 100vh;
+	background-color: #333333;
+	display: flex;
+	justify-content: center;
 }
 ol, ul {
 	list-style: none;
@@ -65,7 +70,9 @@ a{
 	box-sizing: border-box;
 }
 
-
+body {
+	
+}
 
 `;
 export default GlobalStyles;
