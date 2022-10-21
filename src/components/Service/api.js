@@ -59,6 +59,11 @@ export function deletePost(id) {
   return promise;
 }
 
+export function getTrending(){
+  const promise = axios.get(`http://localhost:4000/trending`);
+  return promise;
+}
+
 export function editPost(body, id) {
   const config = createHeaders();
 
