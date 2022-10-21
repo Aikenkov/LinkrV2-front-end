@@ -10,7 +10,6 @@ import SignUp from "./Signup/Signup.js";
 import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
-import Header from "./Header";
 import UserPosts from "./UserPosts/UserPosts";
 import PrivateRoute from "./PrivateRoute";
 import Home from "./home/HomePage";

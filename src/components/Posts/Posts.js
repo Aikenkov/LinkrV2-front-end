@@ -25,6 +25,8 @@ export default function Posts() {
             });
     }, [reload]);
 
+    console.log(post);
+
     return post.length === 0 ? (
         <NoPosts>{message}</NoPosts>
     ) : (
