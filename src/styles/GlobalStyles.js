@@ -87,6 +87,11 @@ body{
     --light-text: #707070;
     --heavy-text: #FFFFFF;
     --liked-heart: #AC0000;
+    --likes-text: #505050;
+
+    
+
+
 
 }
 

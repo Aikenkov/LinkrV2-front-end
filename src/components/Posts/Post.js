@@ -43,7 +43,6 @@ export default function Post({ post }) {
     });
 
     function unlikePost() {
-        console.log("delete");
         removeUserLike(id)
             .catch((response) => {
                 console.log(response);
@@ -54,7 +53,6 @@ export default function Post({ post }) {
     }
 
     function likePost() {
-        console.log("post");
         insertLike(id)
             .catch((response) => {
                 console.log(response);
@@ -66,14 +64,21 @@ export default function Post({ post }) {
 
     return (
         <PostContainer>
-            <div>
+            <LikesContainer>
                 <Img src={picture} alt='perfil' />
                 {userlike.length > 0 ? (
                     <FillHeart onClick={() => unlikePost()} />
                 ) : (
                     <Heart onClick={() => likePost()} />
                 )}
-            </div>
+
+                <div>
+                    <span>{postLikes.length} likes</span>
+                    <LikesMessage>
+                        <span>João, Maria e outras 11 pessoas</span>
+                    </LikesMessage>
+                </div>
+            </LikesContainer>
 
             <span>
                 <span>{username}</span>
@@ -85,6 +90,61 @@ export default function Post({ post }) {
         </PostContainer>
     );
 }
+
+const LikesMessage = styled.div`
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: -35px;
+    left: -70px;
+
+    width: 169px;
+    height: 24px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.9);
+
+    && span {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--likes-text);
+        margin-bottom: 4px;
+    }
+
+    &:after {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        /*Faz seta "apontar para baixo. Definir o valor como 'top' fará ela "apontar para cima" */
+        /*Aqui entra a cor da "aba" do balão */
+        border-bottom: 7px solid rgba(255, 255, 255, 0.9);
+        top: -6px; /*localização. Experimente alterar para 'bottom'*/
+        left: 47%;
+    }
+`;
+
+const LikesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 18px;
+
+    & > :last-child {
+        position: relative;
+    }
+
+    && span {
+        font-size: 11px;
+        margin-top: 4px;
+    }
+
+    && span:hover ~ div {
+        display: flex;
+    }
+`;
 
 const Img = styled.img`
     width: 50px;
@@ -99,10 +159,11 @@ const FillHeart = styled(BsFillHeartFill)`
     color: var(--liked-heart);
     cursor: pointer;
     user-select: none;
+    margin-top: 3px;
 
     :hover {
         transition: all 0.1s ease-in;
-        filter: brightness(1.2);
+        filter: brightness(1.4);
     }
 
     :active {
@@ -119,7 +180,7 @@ const Heart = styled(HiOutlineHeart)`
 
     :hover {
         transition: all 0.1s ease-in;
-        filter: brightness(1.2);
+        filter: brightness(1.4);
     }
 
     :active {
@@ -144,12 +205,5 @@ const PostContainer = styled.div`
         overflow: hidden;
         text-overflow: ellipsis;
         direction: ltr;
-    }
-
-    & > :first-child {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-right: 18px;
     }
 `;
