@@ -1,4 +1,5 @@
-import { useEffect, useState, useContext, React } from "react";
+import { useEffect, useState, React } from "react";
+import { Link } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
@@ -10,13 +11,13 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 export default function Post({ post }) {
-  const { username, picture, text, link, id } = post;
+  const { username, picture, text, link, id, user_id } = post;
 
   const [metadataUrl, setMetadaUrl] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editText, setEditText] = useState(text);
-  
+
   const body = { url: link };
   const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
@@ -55,7 +56,9 @@ export default function Post({ post }) {
       ) : null}
 
       <PostContainer>
-        <Img src={picture} alt="perfil" />
+        <Link to={`/user/${user_id}`}>
+          <Img src={picture} alt="perfil" />
+        </Link>
 
         <span>
           {myUsername === username ? (
