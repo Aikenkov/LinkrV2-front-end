@@ -1,18 +1,23 @@
-import { useEffect, useState, React } from "react";
+import { useEffect, useState, useContext, React } from "react";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
-import { DeleteIcon } from "../common/Icons";
+import EditPostForm from "./EditPostForm";
+import { DeleteIcon, EditIcon } from "../common/Icons";
 import { ThreeDots } from "react-loader-spinner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 export default function Post({ post }) {
+  const { username, picture, text, link, id } = post;
+
   const [metadataUrl, setMetadaUrl] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-
-  const { username, picture, text, link, id } = post;
+  const [editOpen, setEditOpen] = useState(false);
+  const [editText, setEditText] = useState(text);
+  
   const body = { url: link };
-
   const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
   useEffect(() => {
@@ -29,8 +34,18 @@ export default function Post({ post }) {
     setIsOpen(true);
   }
 
+  function editedPost() {
+    setEditOpen(!editOpen);
+
+    if (editOpen) {
+      setEditText(text);
+    }
+  }
+
   return (
     <>
+      <ToastContainer />
+
       {modalIsOpen ? (
         <ModalContainer
           modalIsOpen={modalIsOpen}
@@ -47,6 +62,10 @@ export default function Post({ post }) {
             <MyUserDelete>
               <span>{username}</span>
               <div>
+                <span>
+                  <EditIcon onClick={editedPost} />
+                </span>
+
                 <DeleteIcon onClick={deletePost} />
               </div>
             </MyUserDelete>
@@ -54,12 +73,22 @@ export default function Post({ post }) {
             <span>{username}</span>
           )}
 
-          <p>{text}</p>
+          {editOpen ? (
+            <EditPostForm
+              id={id}
+              text={text}
+              editText={editText}
+              setEditText={setEditText}
+              setEditOpen={setEditOpen}
+            />
+          ) : (
+            <p>{text}</p>
+          )}
 
           {metadataUrl.length === 0 ? (
             <ThreeDots color={"#B7B7B7"} height={70} width={50} />
           ) : (
-            <LinkPreview metadaUrl={metadataUrl} />
+            <LinkPreview metadataUrl={metadataUrl} />
           )}
         </span>
       </PostContainer>
@@ -84,6 +113,18 @@ const PostContainer = styled.div`
   padding: 19px;
   margin-top: 16px;
 
+  textarea {
+    background-color: #ffffff;
+    color: #171717;
+    width: 100%;
+    height: 50px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
   p {
     margin-top: 8px;
     height: fit-content;
@@ -97,6 +138,11 @@ const PostContainer = styled.div`
 const MyUserDelete = styled.div`
   display: flex;
   justify-content: space-between;
+  width: 503px;
+
+  span {
+    margin-right: 10px;
+  }
 
   div {
     cursor: pointer;

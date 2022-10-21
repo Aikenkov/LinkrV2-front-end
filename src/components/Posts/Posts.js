@@ -7,7 +7,7 @@ import UserContext from "../contexts/userContexts";
 
 export default function Posts() {
   const [post, setPost] = useState([]);
-  const { reload, setReload } = useContext(UserContext);
+  const { reload } = useContext(UserContext);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );

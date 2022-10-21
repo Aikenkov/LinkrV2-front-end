@@ -41,15 +41,15 @@ export function postMetadata(body) {
   return promise;
 }
 
-export function getUser(id){
-    const promise = axios.get(`http://localhost:4000/users/${id}`);
-    return promise;
+export function getUser(id) {
+  const promise = axios.get(`http://localhost:4000/users/${id}`);
+  return promise;
 }
 
-export function getUserPosts(id){
-    const config = createHeaders();
-    const promise = axios.get(`http://localhost:4000/user/${id}`, config);
-    return promise;
+export function getUserPosts(id) {
+  const config = createHeaders();
+  const promise = axios.get(`http://localhost:4000/user/${id}`, config);
+  return promise;
 }
 
 export function deletePost(id) {
@@ -58,7 +58,15 @@ export function deletePost(id) {
   const promise = axios.delete(`${URL}/posts/${id}`, config);
   return promise;
 }
+
 export function getTrending(){
   const promise = axios.get(`http://localhost:4000/trending`);
+  return promise;
+}
+
+export function editPost(body, id) {
+  const config = createHeaders();
+
+  const promise = axios.put(`${URL}/posts/${id}`, body, config);
   return promise;
 }
