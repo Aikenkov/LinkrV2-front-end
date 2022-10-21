@@ -7,6 +7,7 @@ function createHeaders() {
             Authorization: `Bearer ${auth}`,
         },
     };
+
     return config;
 }
 
@@ -58,13 +59,13 @@ export function removeUserLike(post_id) {
     return promise;
 }
 
-export function insertLike(post_id) {
-    const config = createHeaders();
-    const promise = axios.post(`${URL}/likes/${post_id}`, config);
+export function getPostLikes(post_id) {
+    const promise = axios.get(`${URL}/likes/${post_id}`);
     return promise;
 }
 
-export function getPostLikes(post_id) {
-    const promise = axios.get(`${URL}/likes/${post_id}`);
+export function insertLike(post_id) {
+    const config = createHeaders();
+    const promise = axios.post(`${URL}/likes/${post_id}`, {}, config);
     return promise;
 }

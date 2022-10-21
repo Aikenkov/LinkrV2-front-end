@@ -1,15 +1,22 @@
-import { useEffect, useState, React } from "react";
-import { postMetadata } from "../Service/api";
+import { useEffect, useState, React, useContext } from "react";
+import {
+    getPostLikes,
+    insertLike,
+    postMetadata,
+    removeUserLike,
+} from "../Service/api";
 import LinkPreview from "./LinkPreview";
 import styled from "styled-components";
 import { HiOutlineHeart } from "react-icons/hi";
 import { BsFillHeartFill } from "react-icons/bs";
+import UserContext from "../contexts/userContexts";
 
 export default function Post({ post }) {
     const [metadataUrl, setMetadaUrl] = useState([]);
+    const [postLikes, setPostLikes] = useState([]);
+    const { reload, setReload } = useContext(UserContext);
     const { username, picture, text, link, id, user_id } = post;
     const body = { url: link };
-    const like_body = { post_id: id };
 
     useEffect(() => {
         postMetadata(body)
@@ -21,11 +28,51 @@ export default function Post({ post }) {
             });
     }, []);
 
+    useEffect(() => {
+        getPostLikes(id)
+            .catch((response) => {
+                console.log(response);
+            })
+            .then((response) => {
+                setPostLikes(response.data);
+            });
+    }, [reload]);
+
+    const userlike = postLikes.filter((e) => {
+        return e.user_id === user_id;
+    });
+
+    function unlikePost() {
+        console.log("delete");
+        removeUserLike(id)
+            .catch((response) => {
+                console.log(response);
+            })
+            .then(() => {
+                setReload(reload + 1);
+            });
+    }
+
+    function likePost() {
+        console.log("post");
+        insertLike(id)
+            .catch((response) => {
+                console.log(response);
+            })
+            .then(() => {
+                setReload(reload + 1);
+            });
+    }
+
     return (
         <PostContainer>
             <div>
                 <Img src={picture} alt='perfil' />
-                <FillHeart />
+                {userlike.length > 0 ? (
+                    <FillHeart onClick={() => unlikePost()} />
+                ) : (
+                    <Heart onClick={() => likePost()} />
+                )}
             </div>
 
             <span>
@@ -50,6 +97,23 @@ const Img = styled.img`
 const FillHeart = styled(BsFillHeartFill)`
     font-size: 20px;
     color: var(--liked-heart);
+    cursor: pointer;
+    user-select: none;
+
+    :hover {
+        transition: all 0.1s ease-in;
+        filter: brightness(1.2);
+    }
+
+    :active {
+        transform: translateY(2px);
+        transition: all 0.2s ease-in;
+    }
+`;
+
+const Heart = styled(HiOutlineHeart)`
+    font-size: 24px;
+    color: var(--heavy-text);
     cursor: pointer;
     user-select: none;
 
