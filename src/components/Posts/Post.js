@@ -8,143 +8,164 @@ import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import PostLikes from "./PostLikes";
 
 export default function Post({ post }) {
-  const { username, picture, text, link, id } = post;
+    const { username, picture, text, link, id } = post;
 
-  const [metadataUrl, setMetadaUrl] = useState([]);
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [editOpen, setEditOpen] = useState(false);
-  const [editText, setEditText] = useState(text);
-  
-  const body = { url: link };
-  const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
+    const [metadataUrl, setMetadaUrl] = useState([]);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
+    const [editText, setEditText] = useState(text);
 
-  useEffect(() => {
-    postMetadata(body)
-      .catch((response) => {
-        console.log(response);
-      })
-      .then((response) => {
-        setMetadaUrl(response.data);
-      });
-  }, []);
+    const body = { url: link };
+    const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
-  function deletePost() {
-    setIsOpen(true);
-  }
+    useEffect(() => {
+        postMetadata(body)
+            .catch((response) => {
+                console.log(response);
+            })
+            .then((response) => {
+                setMetadaUrl(response.data);
+            });
+    }, []);
 
-  function editedPost() {
-    setEditOpen(!editOpen);
-
-    if (editOpen) {
-      setEditText(text);
+    function deletePost() {
+        setIsOpen(true);
     }
-  }
 
-  return (
-    <>
-      <ToastContainer />
+    function editedPost() {
+        setEditOpen(!editOpen);
 
-      {modalIsOpen ? (
-        <ModalContainer
-          modalIsOpen={modalIsOpen}
-          setIsOpen={setIsOpen}
-          id={id}
-        />
-      ) : null}
+        if (editOpen) {
+            setEditText(text);
+        }
+    }
 
-      <PostContainer>
-        <Img src={picture} alt="perfil" />
+    return (
+        <>
+            <ToastContainer />
 
-        <span>
-          {myUsername === username ? (
-            <MyUserDelete>
-              <span>{username}</span>
-              <div>
+            {modalIsOpen ? (
+                <ModalContainer
+                    modalIsOpen={modalIsOpen}
+                    setIsOpen={setIsOpen}
+                    id={id}
+                />
+            ) : null}
+
+            <PostContainer>
+                <div>
+                    <Img src={picture} alt='perfil' />
+                    <PostLikes post={post} />
+                </div>
+
                 <span>
-                  <EditIcon onClick={editedPost} />
+                    {myUsername === username ? (
+                        <MyUserDelete>
+                            <span>{username}</span>
+                            <div>
+                                <span>
+                                    <EditIcon onClick={editedPost} />
+                                </span>
+
+                                <DeleteIcon onClick={deletePost} />
+                            </div>
+                        </MyUserDelete>
+                    ) : (
+                        <span>{username}</span>
+                    )}
+
+                    {editOpen ? (
+                        <EditPostForm
+                            id={id}
+                            text={text}
+                            editText={editText}
+                            setEditText={setEditText}
+                            setEditOpen={setEditOpen}
+                        />
+                    ) : (
+                        <p>{text}</p>
+                    )}
+
+                    {metadataUrl.length === 0 ? (
+                        <ThreeDots color={"#B7B7B7"} height={70} width={50} />
+                    ) : (
+                        <LinkPreview metadataUrl={metadataUrl} />
+                    )}
                 </span>
-
-                <DeleteIcon onClick={deletePost} />
-              </div>
-            </MyUserDelete>
-          ) : (
-            <span>{username}</span>
-          )}
-
-          {editOpen ? (
-            <EditPostForm
-              id={id}
-              text={text}
-              editText={editText}
-              setEditText={setEditText}
-              setEditOpen={setEditOpen}
-            />
-          ) : (
-            <p>{text}</p>
-          )}
-
-          {metadataUrl.length === 0 ? (
-            <ThreeDots color={"#B7B7B7"} height={70} width={50} />
-          ) : (
-            <LinkPreview metadataUrl={metadataUrl} />
-          )}
-        </span>
-      </PostContainer>
-    </>
-  );
+            </PostContainer>
+        </>
+    );
 }
 
 const Img = styled.img`
-  width: 50px;
-  height: 50px;
-  border-radius: 26.5px;
-  object-fit: cover;
-  margin-right: 18px;
+    width: 50px;
+    height: 50px;
+    border-radius: 26.5px;
+    object-fit: cover;
+    margin-bottom: 19px;
 `;
 
 const PostContainer = styled.div`
-  width: 611px;
-  height: fit-content;
-  background-color: #171717;
-  border-radius: 16px;
-  display: flex;
-  padding: 19px;
-  margin-top: 16px;
-
-  textarea {
-    background-color: #ffffff;
-    color: #171717;
-    width: 100%;
-    height: 50px;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    border-radius: 7px;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-
-  p {
-    margin-top: 8px;
+    width: 611px;
     height: fit-content;
-    white-space: wrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    direction: ltr;
-  }
+    background-color: #171717;
+    border-radius: 16px;
+    display: flex;
+    padding: 19px;
+    margin-top: 16px;
+
+    textarea {
+        background-color: #ffffff;
+        color: #171717;
+        width: 100%;
+        height: 50px;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        border-radius: 7px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    p {
+        margin-top: 8px;
+        height: fit-content;
+        background-color: #171717;
+        border-radius: 16px;
+        display: flex;
+        padding: 19px;
+        margin-top: 16px;
+    }
+
+    & > :first-child {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-right: 18px;
+    }
+
+    p {
+        margin-top: 8px;
+        height: fit-content;
+        white-space: wrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        direction: ltr;
+    }
 `;
 
 const MyUserDelete = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 503px;
+    display: flex;
+    justify-content: space-between;
+    width: 503px;
 
-  span {
-    margin-right: 10px;
-  }
+    span {
+        margin-right: 10px;
+    }
 
-  div {
-    cursor: pointer;
-  }
+    div {
+        cursor: pointer;
+    }
 `;

@@ -3,20 +3,21 @@ import styled from "styled-components";
 import { getTrending } from "../Service/api";
 
 export default function Trending() {
-
     const [trending, setTrending] = useState([]);
     useEffect(() => {
         const trendingPromisse = getTrending();
-        trendingPromisse.then(p => setTrending(p.data));
-    },[]);
+        trendingPromisse.then((p) => setTrending(p.data));
+    }, []);
     console.log(trending);
 
     return (
         <Wrapper>
             <h2>Trending</h2>
-            <HorizontalBorder/>
+            <HorizontalBorder />
             <div>
-                {trending.map(t => <p># {t?.tag}</p>)}
+                {trending.map((t, i) => (
+                    <p key={i}>{t?.tag}</p>
+                ))}
             </div>
         </Wrapper>
     );
@@ -33,17 +34,17 @@ const Wrapper = styled.div`
     flex-direction: column;
 
     h2 {
-        font-family: 'Oswald';
+        font-family: "Oswald";
         color: white;
         font-weight: 700;
         font-size: 27px;
         margin-left: 18px;
         margin-top: 10px;
     }
-    div{
+    div {
         margin-top: 22px;
         margin-left: 16px;
-        p{
+        p {
             color: white;
             font-weight: 700;
             font-size: 19px;
@@ -57,4 +58,4 @@ const HorizontalBorder = styled.div`
     height: 1px;
     background-color: #484848;
     margin-top: 12px;
-`
+`;
