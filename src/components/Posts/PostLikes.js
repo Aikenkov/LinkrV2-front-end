@@ -7,18 +7,57 @@ import UserContext from "../contexts/userContexts";
 
 export default function PostLikes({ post }) {
     const [postLikes, setPostLikes] = useState([]);
+    const [text, setText] = useState("Nenhuma curtida");
+    // const [userLike, setUserLike] = useState([]);
+    //  const [othersLike, setOthersLike] = useState([]); */
     const { reload, setReload } = useContext(UserContext);
     const { username, id, user_id } = post;
-    let firstsLikes = [];
 
     useEffect(() => {
         getPostLikes(id)
             .catch((response) => {
                 console.log(response);
             })
-            .then((response) => {
+            .then(async (response) => {
                 setPostLikes(response.data);
             });
+    }, [reload]);
+
+    const userLike = postLikes.filter((e) => {
+        return e.user_id === user_id;
+    });
+
+    /* useEffect(() => {
+        postLikes.filter((e) => {
+            if (e.user_id === user_id) {
+                setUserLike(e);
+            }
+        });
+    }, [postLikes]); */
+
+    console.log(userLike);
+
+    const othersLike = postLikes.filter((e) => {
+        return e.user_id !== user_id;
+    });
+
+    useEffect(() => {
+        if (userLike.length > 0 && postLikes.length === 1) {
+            setText("Você e outras 0 pessoas");
+        }
+        if (userLike.length > 0 && postLikes.length === 2) {
+            setText(`Você, ${othersLike[0].username} e outras 0 pessoas`);
+        }
+        if (userLike.length === 0 && postLikes.length >= 2) {
+            setText(
+                `${othersLike[1].username}, ${
+                    othersLike[0].username
+                } e outras ${postLikes.length - 2} pessoas`
+            );
+        }
+        if (userLike.length === 0 && postLikes.length === 1) {
+            setText(`${othersLike[0].username} e outras 0 pessoas`);
+        }
     }, [reload]);
 
     function unlikePost() {
@@ -41,46 +80,18 @@ export default function PostLikes({ post }) {
             });
     }
 
-    const userlike = postLikes.filter((e) => {
-        return e.user_id === user_id;
-    });
-
-    /* if (postLikes.length > 0) {
-          if (postLikes.length === 1 && userlike.length > 0) {
-              firstsLikes.push("Você");
-          } else if (postLikes.length === 1) {
-              firstsLikes.push(postLikes[0].username);
-          } else {
-              for (let i = 0; i < 2; i++) {
-                  if (userlike.length > 0 && i === 0) {
-                      firstsLikes.push("Você");
-                  }
-
-                  if (
-                      postLikes[i].username !== username &&
-                      firstsLikes.length < 2
-                  ) {
-                      firstsLikes.push(postLikes[i].username);
-                  }
-              }
-          }
-      }
- */
-
-    console.log(firstsLikes);
-
     return (
         <LikesContainer>
-            {userlike.length > 0 ? (
+            {userLike.length > 0 ? (
                 <FillHeart onClick={() => unlikePost()} />
             ) : (
                 <Heart onClick={() => likePost()} />
             )}
 
             <div>
-                <p>{postLikes.length} likes</p>
+                <h4>{postLikes.length} likes</h4>
                 <LikesMessage>
-                    <span>João, Maria a e outras 11 pessoas</span>
+                    <span>{text}</span>
                 </LikesMessage>
             </div>
         </LikesContainer>
@@ -104,6 +115,7 @@ const LikesMessage = styled.div`
     && span {
         font-size: 11px;
         font-weight: 700;
+        margin-top: 3px;
         color: var(--likes-text);
     }
 
@@ -129,13 +141,14 @@ const LikesContainer = styled.div`
         position: relative;
     }
 
-    && p {
+    && h4 {
         font-size: 11px;
         margin-top: 4px;
         color: var(--heavy-text);
+        padding: 0;
     }
 
-    && p:hover ~ div {
+    && h4:hover ~ div {
         display: flex;
     }
 `;

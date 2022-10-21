@@ -1,13 +1,25 @@
-import { useEffect, useState, React, useContext } from "react";
+import { useEffect, useState, useContext, React } from "react";
 import { postMetadata } from "../Service/api";
+import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
+import EditPostForm from "./EditPostForm";
+import { DeleteIcon, EditIcon } from "../common/Icons";
+import { ThreeDots } from "react-loader-spinner";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import PostLikes from "./PostLikes";
 
 export default function Post({ post }) {
+    const { username, picture, text, link, id } = post;
+
     const [metadataUrl, setMetadaUrl] = useState([]);
-    const { username, picture, text, link, id, user_id } = post;
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
+    const [editText, setEditText] = useState(text);
+
     const body = { url: link };
+    const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
     useEffect(() => {
         postMetadata(body)
@@ -19,21 +31,72 @@ export default function Post({ post }) {
             });
     }, []);
 
+    function deletePost() {
+        setIsOpen(true);
+    }
+
+    function editedPost() {
+        setEditOpen(!editOpen);
+
+        if (editOpen) {
+            setEditText(text);
+        }
+    }
+
     return (
-        <PostContainer>
-            <div>
-                <Img src={picture} alt='perfil' />
-                <PostLikes post={post} />
-            </div>
+        <>
+            <ToastContainer />
 
-            <span>
-                <span>{username}</span>
+            {modalIsOpen ? (
+                <ModalContainer
+                    modalIsOpen={modalIsOpen}
+                    setIsOpen={setIsOpen}
+                    id={id}
+                />
+            ) : null}
 
-                <p>{text}</p>
+            <PostContainer>
+                <div>
+                    <Img src={picture} alt='perfil' />
+                    <PostLikes post={post} />
+                </div>
 
-                <LinkPreview metadaUrl={metadataUrl} />
-            </span>
-        </PostContainer>
+                <span>
+                    {myUsername === username ? (
+                        <MyUserDelete>
+                            <span>{username}</span>
+                            <div>
+                                <span>
+                                    <EditIcon onClick={editedPost} />
+                                </span>
+
+                                <DeleteIcon onClick={deletePost} />
+                            </div>
+                        </MyUserDelete>
+                    ) : (
+                        <span>{username}</span>
+                    )}
+
+                    {editOpen ? (
+                        <EditPostForm
+                            id={id}
+                            text={text}
+                            editText={editText}
+                            setEditText={setEditText}
+                            setEditOpen={setEditOpen}
+                        />
+                    ) : (
+                        <p>{text}</p>
+                    )}
+
+                    {metadataUrl.length === 0 ? (
+                        <ThreeDots color={"#B7B7B7"} height={70} width={50} />
+                    ) : (
+                        <LinkPreview metadataUrl={metadataUrl} />
+                    )}
+                </span>
+            </PostContainer>
+        </>
     );
 }
 
@@ -54,6 +117,28 @@ const PostContainer = styled.div`
     padding: 19px;
     margin-top: 16px;
 
+    textarea {
+        background-color: #ffffff;
+        color: #171717;
+        width: 100%;
+        height: 50px;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        border-radius: 7px;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+
+    p {
+        margin-top: 8px;
+        height: fit-content;
+        background-color: #171717;
+        border-radius: 16px;
+        display: flex;
+        padding: 19px;
+        margin-top: 16px;
+    }
+
     & > :first-child {
         display: flex;
         flex-direction: column;
@@ -68,5 +153,19 @@ const PostContainer = styled.div`
         overflow: hidden;
         text-overflow: ellipsis;
         direction: ltr;
+    }
+`;
+
+const MyUserDelete = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 503px;
+
+    span {
+        margin-right: 10px;
+    }
+
+    div {
+        cursor: pointer;
     }
 `;

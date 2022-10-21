@@ -7,7 +7,6 @@ function createHeaders() {
             Authorization: `Bearer ${auth}`,
         },
     };
-
     return config;
 }
 
@@ -43,13 +42,32 @@ export function postMetadata(body) {
 }
 
 export function getUser(id) {
-    const promise = axios.get(`${URL}/users/${id}`);
+    const promise = axios.get(`http://localhost:4000/users/${id}`);
     return promise;
 }
 
 export function getUserPosts(id) {
     const config = createHeaders();
-    const promise = axios.get(`${URL}/user/${id}`, config);
+    const promise = axios.get(`http://localhost:4000/user/${id}`, config);
+    return promise;
+}
+
+export function deletePost(id) {
+    const config = createHeaders();
+
+    const promise = axios.delete(`${URL}/posts/${id}`, config);
+    return promise;
+}
+
+export function getTrending() {
+    const promise = axios.get(`http://localhost:4000/trending`);
+    return promise;
+}
+
+export function editPost(body, id) {
+    const config = createHeaders();
+
+    const promise = axios.put(`${URL}/posts/${id}`, body, config);
     return promise;
 }
 
