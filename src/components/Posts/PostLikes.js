@@ -35,8 +35,6 @@ export default function PostLikes({ post }) {
         });
     }, [postLikes]); */
 
-    console.log(userLike);
-
     const othersLike = postLikes.filter((e) => {
         return e.user_id !== user_id;
     });
