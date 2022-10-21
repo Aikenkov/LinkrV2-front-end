@@ -53,8 +53,12 @@ export function getUserPosts(id){
 }
 
 export function deletePost(id) {
-    const config = createHeaders();
+  const config = createHeaders();
 
-    const promise = axios.delete(`${URL}/posts/${id}`, config);
-    return promise;
-  }
+  const promise = axios.delete(`${URL}/posts/${id}`, config);
+  return promise;
+}
+export function getTrending(){
+  const promise = axios.get(`http://localhost:4000/trending`);
+  return promise;
+}
