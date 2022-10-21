@@ -1,8 +1,8 @@
 import { React } from "react";
 import styled from "styled-components";
 
-export default function LinkPreview({ metadaUrl }) {
-  const { title, description, link, image } = metadaUrl;
+export default function LinkPreview({ metadataUrl }) {
+  const { title, description, link, image } = metadataUrl;
 
   return (
     <MetadataImage href={link} target="_blank">
@@ -20,7 +20,7 @@ export default function LinkPreview({ metadaUrl }) {
 
 const MetadataImage = styled.a`
   display: flex;
-
+  width: 503px;
   img {
     width: 153px;
     height: 155px;

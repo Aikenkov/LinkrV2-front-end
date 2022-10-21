@@ -67,8 +67,8 @@ const customStyles = {
     height: "262px",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    "border-radius": "50px",
-    "background-color": "#333333",
+    borderRadius: "50px",
+    backgroundColor: "#333333",
   },
 };
 
