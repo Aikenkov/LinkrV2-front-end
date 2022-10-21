@@ -51,3 +51,8 @@ export function getUserPosts(id){
     const promise = axios.get(`http://localhost:4000/user/${id}`, config);
     return promise;
 }
+
+export function getTrending(){
+    const promise = axios.get(`http://localhost:4000/trending`);
+    return promise;
+}
