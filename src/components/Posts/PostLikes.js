@@ -7,11 +7,13 @@ import UserContext from "../contexts/userContexts";
 
 export default function PostLikes({ post }) {
   const [postLikes, setPostLikes] = useState([]);
-  const [text, setText] = useState("Nenhuma curtida");
+  const [text, setText] = useState("");
   // const [userLike, setUserLike] = useState([]);
   //  const [othersLike, setOthersLike] = useState([]); */
   const { reload, setReload } = useContext(UserContext);
   const { username, id, user_id } = post;
+
+  const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
   useEffect(() => {
     getPostLikes(id)
@@ -20,12 +22,11 @@ export default function PostLikes({ post }) {
       })
       .then(async (response) => {
         setPostLikes(response.data);
-        console.log(postLikes);
       });
-  }, [reload]);
+  }, [postLikes]);
 
   const userLike = postLikes.filter((e) => {
-    return e.user_id === user_id;
+    return e.username === myUsername;
   });
 
   /* useEffect(() => {
@@ -41,6 +42,9 @@ export default function PostLikes({ post }) {
   });
 
   useEffect(() => {
+    if (userLike.length === 0 && postLikes.length === 0) {
+      setText("Nenhuma curtida");
+    }
     if (userLike.length > 0 && postLikes.length === 1) {
       setText("Você e outras 0 pessoas");
     }
@@ -55,9 +59,9 @@ export default function PostLikes({ post }) {
       );
     }
     if (userLike.length === 0 && postLikes.length === 1) {
-      setText(`${othersLike[0].username} e outras 0 pessoas`);
+      setText(`${postLikes[0].username} e outras 0 pessoas`);
     }
-  }, [reload]);
+  }, [postLikes]);
 
   function unlikePost() {
     removeUserLike(id)
@@ -88,7 +92,9 @@ export default function PostLikes({ post }) {
       )}
 
       <div>
-        <h4>{postLikes.length} likes</h4>
+        <h4>
+          {postLikes.length} {postLikes.length > 1 ? "likes" : "like"}
+        </h4>
         <LikesMessage>
           <span>{text}</span>
         </LikesMessage>
@@ -104,20 +110,17 @@ const LikesMessage = styled.div`
   position: absolute;
   bottom: -42px;
   left: -76px;
-
   width: 182px;
   min-height: 24px;
   padding: 0 5px 5px 8px;
   border-radius: 3px;
   background: rgba(255, 255, 255, 0.9);
-
   && span {
     font-size: 11px;
     font-weight: 700;
     margin-top: 3px;
     color: var(--likes-text);
   }
-
   &:after {
     content: "";
     width: 0;
@@ -125,7 +128,6 @@ const LikesMessage = styled.div`
     position: absolute;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-
     border-bottom: 7px solid rgba(255, 255, 255, 0.9);
     top: -6px;
     left: 47%;
@@ -135,18 +137,15 @@ const LikesMessage = styled.div`
 const LikesContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   & > :last-child {
     position: relative;
   }
-
   && h4 {
     font-size: 11px;
     margin-top: 4px;
     color: var(--heavy-text);
     padding: 0;
   }
-
   && h4:hover ~ div {
     display: flex;
   }
@@ -159,12 +158,10 @@ const FillHeart = styled(BsFillHeartFill)`
   user-select: none;
   margin-left: 3px;
   margin-top: 3px;
-
   :hover {
     transition: all 0.1s ease-in;
     filter: brightness(1.4);
   }
-
   :active {
     transform: translateY(2px);
     transition: all 0.2s ease-in;
@@ -176,12 +173,10 @@ const Heart = styled(HiOutlineHeart)`
   color: var(--heavy-text);
   cursor: pointer;
   user-select: none;
-
   :hover {
     transition: all 0.1s ease-in;
     filter: brightness(1.4);
   }
-
   :active {
     transform: translateY(2px);
     transition: all 0.2s ease-in;

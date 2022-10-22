@@ -27,7 +27,8 @@ const Wrapper = styled.div`
     width: 20vw;
     max-width: 301px;
     height: 500px;
-    margin-top: 232px;
+    //margin-top: 232px;
+    margin-top: 210px;
     border-radius: 16px;
     background-color: var(--heavy-background);
     display: flex;

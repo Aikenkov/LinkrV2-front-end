@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
-import EditPostForm from "./EditPostForm";
+import EditPostForm from "./EditPost";
 import { DeleteIcon, EditIcon } from "../common/Icons";
 import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
@@ -130,16 +130,6 @@ const PostContainer = styled.div`
     border-radius: 7px;
     font-size: 14px;
     margin-top: 5px;
-  }
-
-  p {
-    margin-top: 8px;
-    height: fit-content;
-    background-color: #171717;
-    border-radius: 16px;
-    display: flex;
-    padding: 19px;
-    margin-top: 16px;
   }
 
   & > :first-child {
