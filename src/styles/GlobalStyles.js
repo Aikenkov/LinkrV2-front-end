@@ -67,6 +67,7 @@ a{
 
 body{
     background-color: var(--main-color);
+	font-family: 'Lato', sans-serif;
 }
 
 *{ 

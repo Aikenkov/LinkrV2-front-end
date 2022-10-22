@@ -70,6 +70,7 @@ export default function Header() {
 const Wrapper = styled.div`
     display: flex;
     position: fixed;
+    z-index: 2;
     left: 0;
     top: 0;
     justify-content: space-between;
@@ -80,6 +81,7 @@ const Wrapper = styled.div`
     ion-icon {
         color: #ffff;
         font-size: 25px;
+        cursor: pointer;
     }
     img {
         width: 53px;
@@ -122,4 +124,5 @@ const LogOuyUser = styled.div`
     font-size: 17px;
     font-weight: 700;
     text-align: left;
+    cursor: pointer;
 `;
