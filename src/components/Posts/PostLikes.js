@@ -1,5 +1,6 @@
 import { useEffect, useState, React, useContext } from "react";
 import { getPostLikes, insertLike, removeUserLike } from "../Service/api";
+import OriginalReactTooltip from "react-tooltip";
 import styled from "styled-components";
 import { HiOutlineHeart } from "react-icons/hi";
 import { BsFillHeartFill } from "react-icons/bs";
@@ -87,47 +88,36 @@ export default function PostLikes({ post }) {
             )}
 
             <div>
-                <h4>{postLikes.length} likes</h4>
-                <LikesMessage>
-                    <span>{text}</span>
-                </LikesMessage>
+                <h4 data-for='getContent' data-tip={text}>
+                    {postLikes.length} likes
+                </h4>
+                <ReactTooltip
+                    id='getContent'
+                    place='bottom'
+                    type='light'
+                    delayHide={400}
+                    effect='solid'
+                />
             </div>
         </LikesContainer>
     );
 }
 
-const LikesMessage = styled.div`
-    display: none;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    bottom: -42px;
-    left: -76px;
-
-    width: 182px;
-    min-height: 24px;
-    padding: 0 5px 5px 8px;
-    border-radius: 3px;
-    background: rgba(255, 255, 255, 0.9);
-
-    && span {
+const ReactTooltip = styled(OriginalReactTooltip).attrs({
+    className: "custom-tooltip",
+})`
+    &.custom-tooltip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 3px;
+        min-height: 24px;
+        height: fit-content;
+        padding: 0;
+        width: 169px;
         font-size: 11px;
         font-weight: 700;
-        margin-top: 3px;
-        color: var(--likes-text);
-    }
-
-    &:after {
-        content: "";
-        width: 0;
-        height: 0;
-        position: absolute;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-
-        border-bottom: 7px solid rgba(255, 255, 255, 0.9);
-        top: -6px;
-        left: 47%;
+        color: #505050;
     }
 `;
 
