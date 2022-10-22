@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getTrending } from "../Service/api";
 
@@ -9,15 +10,16 @@ export default function Trending() {
         const trendingPromisse = getTrending();
         trendingPromisse.then(p => setTrending(p.data));
     },[]);
+    const navigate = useNavigate();
     console.log(trending);
 
     return (
         <Wrapper>
             <h2>Trending</h2>
             <HorizontalBorder/>
-            <div>
-                {trending.map(t => <p># {t?.tag}</p>)}
-            </div>
+            <TrendingTags>
+                {trending.map((t,i) => <p key={i} onClick={() => {navigate(`/hashtag/${t?.tag}`)}}># {t?.tag}</p>)}
+            </TrendingTags>
         </Wrapper>
     );
 }
@@ -40,16 +42,6 @@ const Wrapper = styled.div`
         margin-left: 18px;
         margin-top: 10px;
     }
-    div{
-        margin-top: 22px;
-        margin-left: 16px;
-        p{
-            color: white;
-            font-weight: 700;
-            font-size: 19px;
-            margin-top: 5px;
-        }
-    }
 `;
 
 const HorizontalBorder = styled.div`
@@ -57,4 +49,16 @@ const HorizontalBorder = styled.div`
     height: 1px;
     background-color: #484848;
     margin-top: 12px;
+`
+
+const TrendingTags = styled.div`
+        margin-top: 22px;
+        margin-left: 16px;
+        p{
+            color: white;
+            font-weight: 700;
+            font-size: 19px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
 `

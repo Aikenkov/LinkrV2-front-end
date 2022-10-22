@@ -9,7 +9,6 @@ import styled from "styled-components";
 export default function Post({ post }) {
   const [metadataUrl, setMetadaUrl] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-
   const { username, picture, text, link, id } = post;
   const body = { url: link };
 

@@ -62,3 +62,8 @@ export function getTrending(){
   const promise = axios.get(`http://localhost:4000/trending`);
   return promise;
 }
+
+export function getHashtagPost(tag){
+  const promise = axios.get(`http://localhost:4000/hashtag/${tag}`);
+  return promise
+}

@@ -1,11 +1,10 @@
 import { useEffect, useState, React, useContext } from "react";
-import { getTimeline } from "../Service/api";
 import { ThreeDots } from "react-loader-spinner";
 import Post from "./Post";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 
-export default function Posts() {
+export default function Posts({func, param}) {
   const [post, setPost] = useState([]);
   const { reload, setReload } = useContext(UserContext);
   const [message, setMessage] = useState(
@@ -13,7 +12,9 @@ export default function Posts() {
   );
 
   useEffect(() => {
-    getTimeline()
+    param = param ? param : '';
+    console.log(param);
+    func(param)
       .catch(() => {
         setMessage(
           "An error occured while trying to fetch the posts, please refresh the page!"

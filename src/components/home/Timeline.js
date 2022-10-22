@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import NewPost from "./NewPost";
 import Posts from "../Posts/Posts";
+import { getTimeline } from "../Service/api";
 
 export default function Timeline() {
   return (
     <Wrapper>
       <h1>timeline</h1>
       <NewPost />
-      <Posts />
+      <Posts func={getTimeline}/>
     </Wrapper>
   );
 }
