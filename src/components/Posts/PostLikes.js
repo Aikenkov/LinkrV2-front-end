@@ -22,8 +22,6 @@ export default function PostLikes({ post }) {
         });
     }, [reload]);
 
-    console.log("render");
-
     const userLike = postLikes.filter((e) => {
         return e.username === myUsername;
     });
