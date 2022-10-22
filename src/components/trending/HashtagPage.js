@@ -4,17 +4,15 @@ import styled from "styled-components";
 import Trending from "./Trending";
 import { getHashtagPost } from "../Service/api";
 
-
-export default function HashtagPage(){
-
+export default function HashtagPage() {
     const { hashtag } = useParams();
-    return(
+    return (
         <Wrapper>
             <Page>
                 <Title>
-                    <h1># {hashtag}</h1>
+                    <h1>{hashtag}</h1>
                 </Title>
-                <Posts func={getHashtagPost} param={hashtag}/>
+                <Posts func={getHashtagPost} param={hashtag} />
             </Page>
             <Trending />
         </Wrapper>
@@ -34,17 +32,17 @@ const Page = styled.div`
 `;
 
 const Title = styled.div`
-        display: flex;
-        img {
-            width: 53px;
-            height: 53px;
-            border-radius: 50%;
-            margin-right: 17px;
-        }
-        h1 {
-            font-family: "Oswald", sans-serif;
-            font-size: 43px;
-            font-weight: 700;
-            color: var(--heavy-text);
-        }
-`
+    display: flex;
+    img {
+        width: 53px;
+        height: 53px;
+        border-radius: 50%;
+        margin-right: 17px;
+    }
+    h1 {
+        font-family: "Oswald", sans-serif;
+        font-size: 43px;
+        font-weight: 700;
+        color: var(--heavy-text);
+    }
+`;

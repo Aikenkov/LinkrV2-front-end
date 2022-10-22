@@ -15,14 +15,14 @@ export default function PostLikes({ post }) {
     const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
     useEffect(() => {
-        getPostLikes(id)
-            .catch((response) => {
-                console.log(response);
-            })
-            .then(async (response) => {
+        getPostLikes(id).then((response) => {
+            if (response) {
                 setPostLikes(response.data);
-            });
-    }, [postLikes]);
+            }
+        });
+    }, [reload]);
+
+    console.log("render");
 
     const userLike = postLikes.filter((e) => {
         return e.username === myUsername;
