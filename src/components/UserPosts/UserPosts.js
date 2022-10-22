@@ -52,6 +52,7 @@ const Title = styled.div`
             height: 53px;
             border-radius: 50%;
             margin-right: 17px;
+            object-fit: cover;
         }
         h1 {
             font-family: "Oswald", sans-serif;
