@@ -1,10 +1,11 @@
 import { useEffect, useState, React, useContext } from "react";
+import { getHashtagPost, getTimeline } from "../Service/api";
 import { ThreeDots } from "react-loader-spinner";
-import Post from "./Post";
+import Post from "../Posts/Post";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 
-export default function Posts({func, param}) {
+export default function HashtagPosts() {
   const [post, setPost] = useState([]);
   const { reload, setReload } = useContext(UserContext);
   const [message, setMessage] = useState(
@@ -12,8 +13,7 @@ export default function Posts({func, param}) {
   );
 
   useEffect(() => {
-    param = param ? param : '';
-    func(param)
+    getHashtagPost()
       .catch(() => {
         setMessage(
           "An error occured while trying to fetch the posts, please refresh the page!"

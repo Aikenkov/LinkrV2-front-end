@@ -87,3 +87,8 @@ export function insertLike(post_id) {
     const promise = axios.post(`${URL}/likes/${post_id}`, {}, config);
     return promise;
 }
+
+export function getHashtagPost(tag){
+  const promise = axios.get(`http://localhost:4000/hashtag/${tag}`);
+  return promise
+}

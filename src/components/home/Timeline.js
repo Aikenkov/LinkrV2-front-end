@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import NewPost from "./NewPost";
 import Posts from "../Posts/Posts";
+import { getTimeline } from "../Service/api";
 
 export default function Timeline() {
-    return (
-        <Wrapper>
-            <h1>timeline</h1>
-            <NewPost />
-            <Posts />
-        </Wrapper>
-    );
+  return (
+    <Wrapper>
+      <h1>timeline</h1>
+      <NewPost />
+      <Posts func={getTimeline}/>
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`

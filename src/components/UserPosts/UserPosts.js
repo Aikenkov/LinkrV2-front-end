@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Post from "../Posts/Post";
+import Posts from "../Posts/Posts";
 import styled from "styled-components";
-import Trending from "../home/Trending";
+import Trending from "../trending/Trending";
 import { getUser, getUserPosts } from "../Service/api";
 
 export default function UserPosts(){
@@ -21,11 +21,11 @@ export default function UserPosts(){
     return(
         <Wrapper>
             <Page>
-                <div>
+                <Title>
                     <img src={user?.picture}/>
                     <h1>{user?.username}'s posts </h1>
-                </div>
-                {posts.map((posts) => (<Post key={posts.id} post={posts} />))}
+                </Title>
+               <Posts func={getUserPosts} param={id}/>
             </Page>
                 <Trending />
         </Wrapper>
@@ -43,7 +43,9 @@ const Page = styled.div`
     max-width: 611px;
     margin-right: 25px;
     margin-top: 125px;
-    div{
+`;
+
+const Title = styled.div`
         display: flex;
         img {
             width: 53px;
@@ -57,5 +59,4 @@ const Page = styled.div`
             font-weight: 700;
             color: var(--heavy-text);
         }
-    }
-`;
+`
