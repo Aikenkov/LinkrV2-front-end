@@ -8,11 +8,11 @@ import UserContext from "../contexts/userContexts";
 
 export default function PostLikes({ post }) {
     const [postLikes, setPostLikes] = useState([]);
-    const [text, setText] = useState("Nenhuma curtida");
-    // const [userLike, setUserLike] = useState([]);
-    //  const [othersLike, setOthersLike] = useState([]); */
+    const [text, setText] = useState("");
     const { reload, setReload } = useContext(UserContext);
-    const { username, id, user_id } = post;
+    const { id, user_id } = post;
+
+    const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
     useEffect(() => {
         getPostLikes(id)
@@ -22,25 +22,20 @@ export default function PostLikes({ post }) {
             .then(async (response) => {
                 setPostLikes(response.data);
             });
-    }, [reload]);
+    }, [postLikes]);
 
     const userLike = postLikes.filter((e) => {
-        return e.user_id === user_id;
+        return e.username === myUsername;
     });
-
-    /* useEffect(() => {
-        postLikes.filter((e) => {
-            if (e.user_id === user_id) {
-                setUserLike(e);
-            }
-        });
-    }, [postLikes]); */
 
     const othersLike = postLikes.filter((e) => {
         return e.user_id !== user_id;
     });
 
     useEffect(() => {
+        if (userLike.length === 0 && postLikes.length === 0) {
+            setText("Nenhuma curtida");
+        }
         if (userLike.length > 0 && postLikes.length === 1) {
             setText("Você e outras 0 pessoas");
         }
@@ -55,9 +50,9 @@ export default function PostLikes({ post }) {
             );
         }
         if (userLike.length === 0 && postLikes.length === 1) {
-            setText(`${othersLike[0].username} e outras 0 pessoas`);
+            setText(`${postLikes[0].username} e outras 0 pessoas`);
         }
-    }, [reload]);
+    }, [postLikes]);
 
     function unlikePost() {
         removeUserLike(id)
@@ -89,7 +84,7 @@ export default function PostLikes({ post }) {
 
             <div>
                 <h4 data-for='getContent' data-tip={text}>
-                    {postLikes.length} likes
+                    {postLikes.length} {postLikes.length > 1 ? "likes" : "like"}
                 </h4>
                 <ReactTooltip
                     id='getContent'
@@ -124,18 +119,15 @@ const ReactTooltip = styled(OriginalReactTooltip).attrs({
 const LikesContainer = styled.div`
     display: flex;
     flex-direction: column;
-
     & > :last-child {
         position: relative;
     }
-
     && h4 {
         font-size: 11px;
         margin-top: 4px;
         color: var(--heavy-text);
         padding: 0;
     }
-
     && h4:hover ~ div {
         display: flex;
     }
@@ -148,12 +140,10 @@ const FillHeart = styled(BsFillHeartFill)`
     user-select: none;
     margin-left: 3px;
     margin-top: 3px;
-
     :hover {
         transition: all 0.1s ease-in;
         filter: brightness(1.4);
     }
-
     :active {
         transform: translateY(2px);
         transition: all 0.2s ease-in;
@@ -165,12 +155,10 @@ const Heart = styled(HiOutlineHeart)`
     color: var(--heavy-text);
     cursor: pointer;
     user-select: none;
-
     :hover {
         transition: all 0.1s ease-in;
         filter: brightness(1.4);
     }
-
     :active {
         transform: translateY(2px);
         transition: all 0.2s ease-in;

@@ -10,7 +10,7 @@ function createHeaders() {
     return config;
 }
 
-const URL = "http://localhost:4000";
+const URL = "https://linkr-back-deploy.herokuapp.com";
 
 export function postSignUp(body) {
     const promise = axios.post(`${URL}/signup`, body);
@@ -42,13 +42,13 @@ export function postMetadata(body) {
 }
 
 export function getUser(id) {
-    const promise = axios.get(`http://localhost:4000/users/${id}`);
+    const promise = axios.get(`${URL}/${id}`);
     return promise;
 }
 
 export function getUserPosts(id) {
     const config = createHeaders();
-    const promise = axios.get(`http://localhost:4000/user/${id}`, config);
+    const promise = axios.get(`${URL}/user/${id}`, config);
     return promise;
 }
 
@@ -60,7 +60,7 @@ export function deletePost(id) {
 }
 
 export function getTrending() {
-    const promise = axios.get(`http://localhost:4000/trending`);
+    const promise = axios.get(`${URL}/trending`);
     return promise;
 }
 
@@ -88,7 +88,7 @@ export function insertLike(post_id) {
     return promise;
 }
 
-export function getHashtagPost(tag){
-  const promise = axios.get(`http://localhost:4000/hashtag/${tag}`);
-  return promise
+export function getHashtagPost(tag) {
+    const promise = axios.get(`${URL}/hashtag/${tag}`);
+    return promise;
 }

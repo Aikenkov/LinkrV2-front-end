@@ -14,8 +14,4 @@ export default function Home() {
 const Wrapper = styled.div`
     display: flex;
     justify-content: center;
-
-    h1 {
-        color: black;
-    }
 `;
