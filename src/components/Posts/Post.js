@@ -9,6 +9,7 @@ import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
+import PostLikes from "./PostLikes";
 
 export default function Post({ post }) {
   const { username, picture, text, link, id, user_id } = post;
@@ -56,9 +57,12 @@ export default function Post({ post }) {
       ) : null}
 
       <PostContainer>
-        <Link to={`/user/${user_id}`}>
-          <Img src={picture} alt="perfil" />
-        </Link>
+        <div>
+          <Link to={`/user/${user_id}`}>
+            <Img src={picture} alt="perfil" />
+          </Link>
+          <PostLikes post={post} />
+        </div>
 
         <span>
           {myUsername === username ? (
@@ -104,7 +108,7 @@ const Img = styled.img`
   height: 50px;
   border-radius: 26.5px;
   object-fit: cover;
-  margin-right: 18px;
+  margin-bottom: 19px;
 `;
 
 const PostContainer = styled.div`
@@ -126,6 +130,23 @@ const PostContainer = styled.div`
     border-radius: 7px;
     font-size: 14px;
     margin-top: 5px;
+  }
+
+  p {
+    margin-top: 8px;
+    height: fit-content;
+    background-color: #171717;
+    border-radius: 16px;
+    display: flex;
+    padding: 19px;
+    margin-top: 16px;
+  }
+
+  & > :first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 18px;
   }
 
   p {

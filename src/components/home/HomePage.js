@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Timeline from "./Timeline";
-import Trending from "./Trending";
+import Trending from "../trending/Trending";
 
 export default function Home() {
     return (

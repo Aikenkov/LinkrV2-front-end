@@ -10,10 +10,10 @@ import SignUp from "./Signup/Signup.js";
 import SignIn from "./Signin/Signin";
 import { useState } from "react";
 import UserContext from "./contexts/userContexts";
-import Header from "./Header";
 import UserPosts from "./UserPosts/UserPosts";
 import PrivateRoute from "./PrivateRoute";
 import Home from "./home/HomePage";
+import HashtagPage from "./trending/HashtagPage";
 
 function App() {
     const location = useLocation();
@@ -56,6 +56,12 @@ function App() {
                             </PrivateRoute>
                         }
                     ></Route>
+                    <Route path='/hashtag/:hashtag' element={
+                        <PrivateRoute>
+                            <HashtagPage />
+                        </PrivateRoute>}>
+                    </Route>
+
                 </Routes>
             </UserContext.Provider>
         </>
