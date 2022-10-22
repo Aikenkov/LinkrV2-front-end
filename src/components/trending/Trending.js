@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../contexts/userContexts";
 import { getTrending } from "../Service/api";
 
 export default function Trending() {
     const [trending, setTrending] = useState([]);
+    const { reload, setReload } = useContext(UserContext);
     useEffect(() => {
         const trendingPromisse = getTrending();
         trendingPromisse.then((p) => setTrending(p.data));
-    }, []);
+    }, [reload]);
     const navigate = useNavigate();
     //console.log(trending);
 
