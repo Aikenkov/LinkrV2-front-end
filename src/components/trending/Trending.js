@@ -42,6 +42,10 @@ const Wrapper = styled.div`
         margin-left: 18px;
         margin-top: 10px;
     }
+
+    @media (max-width: 768px) {
+        display: none;
+      }
 `;
 
 const HorizontalBorder = styled.div`

@@ -48,7 +48,7 @@ export function postMetadata(body) {
 }
 
 export function getUser(id) {
-    const promise = axios.get(`${URL}/${id}`);
+    const promise = axios.get(`${URL}/users/${id}`);
     return promise;
 }
 
