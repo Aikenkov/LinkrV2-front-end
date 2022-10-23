@@ -8,21 +8,25 @@ export default function Timeline() {
     <Wrapper>
       <h1>timeline</h1>
       <NewPost />
-      <Posts func={getTimeline}/>
+      <Posts func={getTimeline} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-    width: 40vw;
-    max-width: 611px;
-    margin-right: 25px;
-    margin-top: 125px;
+  width: 40vw;
+  width: 100%;
+  margin-right: 25px;
+  margin-top: 125px;
 
-    && h1 {
-        font-family: "Oswald", sans-serif;
-        font-size: 43px;
-        font-weight: 700;
-        color: var(--heavy-text);
-    }
+  && h1 {
+    font-family: "Oswald", sans-serif;
+    font-size: 43px;
+    font-weight: 700;
+    color: var(--heavy-text);
+  }
+
+  @media (max-width: 767px) {
+    margin-right: 0px;
+  }
 `;

@@ -4,7 +4,7 @@ import Post from "./Post";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 
-export default function Posts({func, param}) {
+export default function Posts({ func, param }) {
   const [post, setPost] = useState([]);
   const { reload, setReload } = useContext(UserContext);
   const [message, setMessage] = useState(
@@ -12,7 +12,7 @@ export default function Posts({func, param}) {
   );
 
   useEffect(() => {
-    param = param ? param : '';
+    param = param ? param : "";
     func(param)
       .catch(() => {
         setMessage(
@@ -67,5 +67,13 @@ const Wrapper = styled.div`
     font-size: 17px;
     color: #b7b7b7;
     margin-top: 7px;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px){
+
   }
 `;

@@ -112,7 +112,8 @@ const Img = styled.img`
 `;
 
 const PostContainer = styled.div`
-  width: 611px;
+  width: 40vw;
+  max-width: 611px;
   height: fit-content;
   background-color: #171717;
   border-radius: 16px;
@@ -124,12 +125,13 @@ const PostContainer = styled.div`
     background-color: #ffffff;
     color: #171717;
     width: 100%;
-    height: 50px;
+    height: fit-content;
     overflow-y: hidden;
     overflow-x: hidden;
     border-radius: 7px;
     font-size: 14px;
     margin-top: 5px;
+    border: none;
   }
 
   & > :first-child {
@@ -146,13 +148,37 @@ const PostContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     direction: ltr;
+    color: #b7b7b7;
+  }
+
+  > span {
+    width: 87%;
+    max-width: 503px;
+  }
+
+  @media (max-width: 767px) {
+    width: 100vw;
+    border-radius: 0px;
+    padding-right: 28px;
+    box-sizing: border-box;
+
+    > span {
+      width: 85%;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    width: 100vw;
+
+    > span {
+      width: 90%;
+    }
   }
 `;
 
 const MyUserDelete = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 503px;
 
   span {
     margin-right: 10px;

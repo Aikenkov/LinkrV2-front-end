@@ -20,9 +20,9 @@ export default function LinkPreview({ metadataUrl }) {
 
 const MetadataImage = styled.a`
   display: flex;
-  width: 503px;
+
   img {
-    width: 153px;
+    width: 30.5%;
     height: 155px;
     border: none;
     border-radius: 0px 11px 11px 0px;
@@ -32,7 +32,7 @@ const MetadataImage = styled.a`
 `;
 
 const Metadata = styled.div`
-  width: 350px;
+  width: 70%;
   height: 155px;
   border-top: solid 1px #4d4d4d;
   border-left: solid 1px #4d4d4d;
@@ -45,7 +45,8 @@ const Metadata = styled.div`
 
   h3 {
     font-size: 11px;
-    color: #9b9595;
+    color: #B7B7B7
+;
     line-height: 13px;
     margin-top: 8px;
     height: fit-content;
