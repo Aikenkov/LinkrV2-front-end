@@ -11,6 +11,7 @@ function createHeaders() {
 }
 
 const URL = "http://localhost:4000";
+//const URL = "https://linkr-back-deploy.herokuapp.com/";
 
 export function postSignUp(body) {
     const promise = axios.post(`${URL}/signup`, body);
@@ -35,6 +36,12 @@ export function getTimeline() {
     const promise = axios.get(`${URL}/timeline`, config);
     return promise;
 }
+export function getSearchUsers(name) {
+    const config = createHeaders();
+
+    const promise = axios.get(`${URL}/search?name=${name}`, config);
+    return promise;
+}
 
 export async function postMetadata(body) {
     const promise = await axios.post(`${URL}/metadata`, body);
@@ -42,7 +49,7 @@ export async function postMetadata(body) {
 }
 
 export function getUser(id) {
-    const promise = axios.get(`${URL}/${id}`);
+    const promise = axios.get(`${URL}/users/${id}`);
     return promise;
 }
 

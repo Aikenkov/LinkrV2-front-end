@@ -1,5 +1,5 @@
 import { useEffect, useState, React } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
@@ -10,6 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import PostLikes from "./PostLikes";
+import { ReactTagify } from "react-tagify";
 
 export default function Post({ post }) {
   const { username, picture, text, link, id, user_id } = post;
@@ -18,7 +19,8 @@ export default function Post({ post }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editText, setEditText] = useState(text);
-
+  
+  const navigate = useNavigate();
   const body = { url: link };
   const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
@@ -89,7 +91,14 @@ export default function Post({ post }) {
               setEditOpen={setEditOpen}
             />
           ) : (
-            <p>{text}</p>
+            <ReactTagify 
+              colors={"#FFFFFF"} 
+              tagClicked={(tag)=> {
+                let noHash = tag.replace("#","");
+                navigate(`/hashtag/${noHash}`);
+              }}>
+                <p>{text}</p>
+            </ReactTagify>
           )}
 
           {metadataUrl.length === 0 ? (
