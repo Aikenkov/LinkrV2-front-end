@@ -86,7 +86,7 @@ function Search(){
     getSearchUsers(value)
       .then((response) => {
         if(response.data.length === 0){
-          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', image:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
+          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', picture_uri:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
         } else{
           setUsersFound(response.data)
         }
