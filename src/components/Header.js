@@ -77,7 +77,6 @@ export default function Header() {
 function Search(){
   const [searchUser, setSearchUser] = useState('');
   const [usersFound, setUsersFound] = useState('');
-  console.log(searchUser, '************',usersFound, )
   const navigate = useNavigate();
 
 
