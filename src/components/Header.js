@@ -86,7 +86,7 @@ function Search(){
     getSearchUsers(value)
       .then((response) => {
         if(response.data.length === 0){
-          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', image:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
+          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', picture_uri:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
         } else{
           setUsersFound(response.data)
         }
@@ -122,9 +122,10 @@ function Search(){
                   :
                     <SearchBox>
                       {usersFound.map((user)=>{
+                        console.log(user.image, '*************')
                         return(
                           <FoundUser onClick={()=>{redirectUser(user)}}>
-                           <img src={user.image}/> {user.username}
+                           <img src={user.picture_uri}/> {user.username}
                           </FoundUser>
                         )
                       })}
@@ -270,6 +271,7 @@ const FoundUser = styled.div`
   padding-left:5px ;
   align-items:center ;
   border-radius:8px;
+  cursor: pointer;
   :hover{
     filter:brightness(1.2);
   }
