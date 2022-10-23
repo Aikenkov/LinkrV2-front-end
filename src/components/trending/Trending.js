@@ -16,7 +16,7 @@ export default function Trending() {
 
     return (
         <Wrapper>
-            <h2>Trending</h2>
+            <h2>trending</h2>
             <HorizontalBorder />
             <TrendingTags>
                 {trending.map((t, i) => (

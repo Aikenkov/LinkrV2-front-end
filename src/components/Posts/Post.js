@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
-import EditPostForm from "./EditPost";
+import EditPostForm from "./EditPostForm";
 import { DeleteIcon, EditIcon } from "../common/Icons";
 import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
@@ -19,7 +19,7 @@ export default function Post({ post }) {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editText, setEditText] = useState(text);
-  
+
   const navigate = useNavigate();
   const body = { url: link };
   const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
@@ -91,13 +91,14 @@ export default function Post({ post }) {
               setEditOpen={setEditOpen}
             />
           ) : (
-            <ReactTagify 
-              colors={"#FFFFFF"} 
-              tagClicked={(tag)=> {
-                let noHash = tag.replace("#","");
+            <ReactTagify
+              colors={"#FFFFFF"}
+              tagClicked={(tag) => {
+                let noHash = tag.replace("#", "");
                 navigate(`/hashtag/${noHash}`);
-              }}>
-                <p>{text}</p>
+              }}
+            >
+              <p>{text}</p>
             </ReactTagify>
           )}
 
@@ -121,7 +122,8 @@ const Img = styled.img`
 `;
 
 const PostContainer = styled.div`
-  width: 611px;
+  width: 100%;
+  max-width: 611px;
   height: fit-content;
   background-color: #171717;
   border-radius: 16px;
@@ -133,12 +135,13 @@ const PostContainer = styled.div`
     background-color: #ffffff;
     color: #171717;
     width: 100%;
-    height: 50px;
+    height: fit-content;
     overflow-y: hidden;
     overflow-x: hidden;
     border-radius: 7px;
     font-size: 14px;
     margin-top: 5px;
+    border: none;
   }
 
   & > :first-child {
@@ -155,13 +158,35 @@ const PostContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     direction: ltr;
+    color: #b7b7b7;
+  }
+
+  > span {
+    width: 87%;
+    max-width: 503px;
+  }
+
+  @media (max-width: 767px) {
+    width: 100vw;
+    border-radius: 0px;
+    padding-right: 28px;
+    box-sizing: border-box;
+
+    > span {
+      width: 85%;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    > span {
+      width: 90%;
+    }
   }
 `;
 
 const MyUserDelete = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 503px;
 
   span {
     margin-right: 10px;

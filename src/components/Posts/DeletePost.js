@@ -7,7 +7,11 @@ import { ThreeDots } from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
+export default function ModalContainer({
+  modalIsOpen,
+  setIsOpen,
+  id
+}) {
   const { reload, setReload } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 

@@ -32,17 +32,18 @@ const Page = styled.div`
 `;
 
 const Title = styled.div`
-    display: flex;
-    img {
-        width: 53px;
-        height: 53px;
-        border-radius: 50%;
-        margin-right: 17px;
-    }
-    h1 {
-        font-family: "Oswald", sans-serif;
-        font-size: 43px;
-        font-weight: 700;
-        color: var(--heavy-text);
-    }
-`;
+        display: flex;
+        img {
+            width: 53px;
+            height: 53px;
+            border-radius: 50%;
+            margin-right: 17px;
+        }
+        h1 {
+            font-family: "Oswald", sans-serif;
+            font-size: 43px;
+            font-weight: 700;
+            color: var(--heavy-text);
+            margin-bottom: 27px;
+        }
+`

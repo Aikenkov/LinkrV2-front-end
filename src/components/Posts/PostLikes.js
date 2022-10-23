@@ -27,7 +27,7 @@ export default function PostLikes({ post }) {
     });
 
     const othersLike = postLikes.filter((e) => {
-        return e.user_id !== user_id;
+        return e.username !== myUsername;
     });
 
     useEffect(() => {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import NewPost from "./NewPost";
 import Posts from "../Posts/Posts";
-import { getTimeline } from "../Service/api";
+import { getTimeline, editPost, deletePost } from "../Service/api";
 
 export default function Timeline() {
     return (
@@ -14,10 +14,11 @@ export default function Timeline() {
 }
 
 const Wrapper = styled.div`
-    width: 40vw;
-    max-width: 611px;
-    margin-right: 25px;
-    margin-top: 125px;
+  width: 40vw;
+  max-width: 611px;
+  width: 100%;
+  margin-right: 25px;
+  margin-top: 125px;
 
     && h1 {
         font-family: "Oswald", sans-serif;

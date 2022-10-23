@@ -59,7 +59,6 @@ table {
 
   //-----------------------------------------------------------------------------
 
-  
 
 a{
     text-decoration: none;
@@ -68,6 +67,7 @@ a{
 body{
     background-color: var(--main-color);
 	font-family: 'Lato', sans-serif;
+
 }
 
 *{ 
@@ -97,7 +97,7 @@ body{
 }
 
 body {
-	
+
 }
 
 `;
