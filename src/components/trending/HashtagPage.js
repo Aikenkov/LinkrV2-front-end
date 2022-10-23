@@ -46,5 +46,6 @@ const Title = styled.div`
             font-size: 43px;
             font-weight: 700;
             color: var(--heavy-text);
+            margin-bottom: 27px;
         }
 `

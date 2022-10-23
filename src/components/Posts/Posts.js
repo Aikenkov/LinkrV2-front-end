@@ -41,7 +41,6 @@ export default function Posts({ func, param }) {
 
 const NoPosts = styled.h2`
   color: #b7b7b7;
-  font-family: Lato;
   font-size: 20px;
   display: flex;
   justify-content: center;
@@ -57,7 +56,6 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: #ffffff;
-  font-family: Lato;
 
   span {
     font-size: 19px;
@@ -71,9 +69,5 @@ const Wrapper = styled.div`
 
   @media (max-width: 767px) {
     width: 100%;
-  }
-
-  @media (min-width: 768px) and (max-width: 1024px){
-
   }
 `;

@@ -15,6 +15,7 @@ export default function Timeline() {
 
 const Wrapper = styled.div`
   width: 40vw;
+  max-width: 611px;
   width: 100%;
   margin-right: 25px;
   margin-top: 125px;
