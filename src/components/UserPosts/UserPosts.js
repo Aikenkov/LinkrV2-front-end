@@ -21,6 +21,7 @@ export default function UserPosts() {
     const postsPromisse = getUserPosts(id);
     postsPromisse.then((p) => setPosts([...p.data]));
   }, []);
+
   return (
     <Wrapper>
       <Page>

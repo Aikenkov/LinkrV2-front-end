@@ -25,11 +25,11 @@ export default function NewPost() {
     function publish() {
         setIsLoading(true);
 
-        // if (!validUrl.test(form.link)) {
-        //     toast.error("Houve um erro ao publicar seu link");
-        //     setTimeout(() => setIsLoading(false), 1000);
-        //     return;
-        // }
+        if (!validUrl.test(form.link)) {
+            toast.error("Houve um erro ao publicar seu link");
+            setTimeout(() => setIsLoading(false), 1000);
+            return;
+        }
         postPublish(form)
             .then((res) => {
                 setIsLoading(false);

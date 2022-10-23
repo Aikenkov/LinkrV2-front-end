@@ -33,7 +33,7 @@ export default function Posts({ func, param }) {
   ) : (
     <Wrapper>
       {post.map((posts) => (
-        <Post key={posts.id} post={posts} />
+        <Post key={posts.id} post={posts}  />
       ))}
     </Wrapper>
   );
