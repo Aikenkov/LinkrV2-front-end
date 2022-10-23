@@ -11,19 +11,16 @@ export default function PostLikes({ post }) {
     const [text, setText] = useState("");
     const { reload, setReload } = useContext(UserContext);
     const { id, user_id } = post;
-    console.log(id, user_id);
 
     const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
     useEffect(() => {
-        getPostLikes(id)
-            .catch((response) => {
-                console.log(response);
-            })
-            .then(async (response) => {
+        getPostLikes(id).then((response) => {
+            if (response) {
                 setPostLikes(response.data);
-            });
-    }, [postLikes]);
+            }
+        });
+    }, [reload]);
 
     const userLike = postLikes.filter((e) => {
         return e.username === myUsername;

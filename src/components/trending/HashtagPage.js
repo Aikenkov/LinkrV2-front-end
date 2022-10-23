@@ -4,17 +4,15 @@ import styled from "styled-components";
 import Trending from "./Trending";
 import { getHashtagPost } from "../Service/api";
 
-
-export default function HashtagPage(){
-
+export default function HashtagPage() {
     const { hashtag } = useParams();
-    return(
+    return (
         <Wrapper>
             <Page>
                 <Title>
-                    <h1># {hashtag}</h1>
+                    <h1>{hashtag}</h1>
                 </Title>
-                <Posts func={getHashtagPost} param={hashtag}/>
+                <Posts func={getHashtagPost} param={hashtag} />
             </Page>
             <Trending />
         </Wrapper>

@@ -1,23 +1,34 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import UserContext from "../contexts/userContexts";
 import { getTrending } from "../Service/api";
 
 export default function Trending() {
     const [trending, setTrending] = useState([]);
+    const { reload, setReload } = useContext(UserContext);
     useEffect(() => {
         const trendingPromisse = getTrending();
-        trendingPromisse.then(p => setTrending(p.data));
-    },[]);
+        trendingPromisse.then((p) => setTrending(p.data));
+    }, [reload]);
     const navigate = useNavigate();
-    console.log(trending);
+    //console.log(trending);
 
     return (
         <Wrapper>
             <h2>trending</h2>
-            <HorizontalBorder/>
+            <HorizontalBorder />
             <TrendingTags>
-                {trending.map((t,i) => <p key={i} onClick={() => {navigate(`/hashtag/${t?.tag}`)}}># {t?.tag}</p>)}
+                {trending.map((t, i) => (
+                    <p
+                        key={i}
+                        onClick={() => {
+                            navigate(`/hashtag/${t?.tag}`);
+                        }}
+                    >
+                        # {t?.tag}
+                    </p>
+                ))}
             </TrendingTags>
         </Wrapper>
     );
@@ -53,16 +64,16 @@ const HorizontalBorder = styled.div`
     height: 1px;
     background-color: #484848;
     margin-top: 12px;
-`
+`;
 
 const TrendingTags = styled.div`
-        margin-top: 22px;
-        margin-left: 16px;
-        p{
-            color: white;
-            font-weight: 700;
-            font-size: 19px;
-            margin-top: 5px;
-            cursor: pointer;
-        }
-`
+    margin-top: 22px;
+    margin-left: 16px;
+    p {
+        color: white;
+        font-weight: 700;
+        font-size: 19px;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+`;

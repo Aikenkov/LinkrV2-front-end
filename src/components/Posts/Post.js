@@ -178,9 +178,6 @@ const PostContainer = styled.div`
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
-    width: 100vw;
-    border-radius: 16px;
-
     > span {
       width: 90%;
     }
