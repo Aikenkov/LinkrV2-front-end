@@ -61,45 +61,37 @@ export default function SignUp() {
             </Logo>
 
             <FormPage>
-                <form onSubmit={confirmLogin}>
-                    <Data>
-                        <TextInput>
-                            <Input
-                                type='email'
-                                onChange={(e) => setEmail(e.target.value)}
-                                value={email}
-                                required
-                                placeholder='email'
-                            />
-                        </TextInput>
-                        <TextInput>
-                            <Input
-                                type='password'
-                                onChange={(e) => setPassword(e.target.value)}
-                                value={password}
-                                required
-                                placeholder='password'
-                            />
-                        </TextInput>
-                        <TextInput>
-                            <Input
-                                type='text'
-                                onChange={(e) => setUserName(e.target.value)}
-                                value={userName}
-                                required
-                                placeholder='username'
-                            />
-                        </TextInput>
+                <Data>
+                    <form onSubmit={confirmLogin}>
+                        <Input
+                            type='email'
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            placeholder='email'
+                        />
+                        <Input
+                            type='password'
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            required
+                            placeholder='password'
+                        />
+                        <Input
+                            type='text'
+                            onChange={(e) => setUserName(e.target.value)}
+                            value={userName}
+                            required
+                            placeholder='username'
+                        />
 
-                        <TextInput>
-                            <Input
-                                type='text'
-                                onChange={(e) => setUrl(e.target.value)}
-                                value={url}
-                                required
-                                placeholder='picture url'
-                            />
-                        </TextInput>
+                        <Input
+                            type='text'
+                            onChange={(e) => setUrl(e.target.value)}
+                            value={url}
+                            required
+                            placeholder='picture url'
+                        />
 
                         {isloading ? (
                             <Button disabled={isloading}>
@@ -120,8 +112,8 @@ export default function SignUp() {
                         <Link to='/'>
                             <TextSignup>Switch back to login</TextSignup>
                         </Link>
-                    </Data>
-                </form>
+                    </form>
+                </Data>
             </FormPage>
         </Page>
     );
@@ -156,9 +148,9 @@ const Input = styled.input`
     box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.4);
     border: none;
     border-radius: 5px;
-    width: 303px;
+    width: 100%;
     height: 45px;
-
+    margin-bottom:12px ;
     padding-left: 11px;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
@@ -170,14 +162,14 @@ const Input = styled.input`
         color: #9f9f9f;
     }
 `;
-const TextInput = styled.div`
-    margin-bottom: 12px;
+
+const Data = styled.div`
+    width: 85%;
 `;
-const Data = styled.div``;
 const Button = styled.button`
     background: #1877f2;
     border-radius: 4.63636px;
-    width: 303px;
+    width: 100%;
     height: 45px;
     font-family: "Oswald", sans-serif;
     font-style: normal;

@@ -10,7 +10,7 @@ function createHeaders() {
     return config;
 }
 
-const URL = "https://linkr-back-deploy.herokuapp.com";
+const URL = "https://linkr-back-deploy.herokuapp.com/";
 
 export function postSignUp(body) {
     const promise = axios.post(`${URL}/signup`, body);
@@ -33,6 +33,12 @@ export function getTimeline() {
     const config = createHeaders();
 
     const promise = axios.get(`${URL}/timeline`, config);
+    return promise;
+}
+export function getSearchUsers(name) {
+    const config = createHeaders();
+
+    const promise = axios.get(`${URL}/search?name=${name}`, config);
     return promise;
 }
 
