@@ -1,11 +1,5 @@
 import GlobalStyles from "../styles/GlobalStyles";
-import {
-    BrowserRouter,
-    Routes,
-    Route,
-    useLocation,
-    Navigate,
-} from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import SignUp from "./Signup/Signup.js";
 import SignIn from "./Signin/Signin";
 import { useState } from "react";
@@ -56,12 +50,14 @@ function App() {
                             </PrivateRoute>
                         }
                     ></Route>
-                    <Route path='/hashtag/:hashtag' element={
-                        <PrivateRoute>
-                            <HashtagPage />
-                        </PrivateRoute>}>
-                    </Route>
-
+                    <Route
+                        path='/hashtag/:hashtag'
+                        element={
+                            <PrivateRoute>
+                                <HashtagPage />
+                            </PrivateRoute>
+                        }
+                    ></Route>
                 </Routes>
             </UserContext.Provider>
         </>

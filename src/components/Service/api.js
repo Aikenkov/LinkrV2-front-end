@@ -10,7 +10,8 @@ function createHeaders() {
     return config;
 }
 
-const URL = "https://linkr-back-deploy.herokuapp.com";
+const URL = "http://localhost:4000";
+//const URL = "https://linkr-back-deploy.herokuapp.com/";
 
 export function postSignUp(body) {
     const promise = axios.post(`${URL}/signup`, body);
@@ -42,8 +43,8 @@ export function getSearchUsers(name) {
     return promise;
 }
 
-export function postMetadata(body) {
-    const promise = axios.post(`${URL}/metadata`, body);
+export async function postMetadata(body) {
+    const promise = await axios.post(`${URL}/metadata`, body);
     return promise;
 }
 
@@ -85,8 +86,8 @@ export function removeUserLike(post_id) {
     return promise;
 }
 
-export function getPostLikes(post_id) {
-    const promise = axios.get(`${URL}/likes/${post_id}`);
+export async function getPostLikes(post_id) {
+    const promise = await axios.get(`${URL}/likes/${post_id}`);
     return promise;
 }
 

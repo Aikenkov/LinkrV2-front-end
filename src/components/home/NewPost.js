@@ -161,4 +161,31 @@ const Wrapper = styled.div`
         height: 66px;
         margin-bottom: 52px;
     }
+
+    @media only screen and (max-width: 767px) {
+        border-radius: 0;
+        text-align: center;
+        padding: 0 15px;
+        min-height: 164px;
+
+        & > :first-child {
+            display: none;
+        }
+
+        & > :last-child {
+            width: 100%;
+            padding: 21px 0 0;
+        }
+
+        button {
+            height: 22px;
+            bottom: 12px;
+            right: 15px;
+        }
+
+        & > :last-child :last-child {
+            height: 47px;
+            margin-bottom: 40px;
+        }
+    }
 `;
