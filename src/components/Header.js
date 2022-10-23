@@ -122,9 +122,10 @@ function Search(){
                   :
                     <SearchBox>
                       {usersFound.map((user)=>{
+                        console.log(user.image, '*************')
                         return(
                           <FoundUser onClick={()=>{redirectUser(user)}}>
-                           <img src={user.image}/> {user.username}
+                           <img src={user.picture_uri}/> {user.username}
                           </FoundUser>
                         )
                       })}
