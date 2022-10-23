@@ -4,13 +4,13 @@ import Posts from "../Posts/Posts";
 import { getTimeline } from "../Service/api";
 
 export default function Timeline() {
-  return (
-    <Wrapper>
-      <h1>timeline</h1>
-      <NewPost />
-      <Posts func={getTimeline}/>
-    </Wrapper>
-  );
+    return (
+        <Wrapper>
+            <h1>timeline</h1>
+            <NewPost />
+            <Posts func={getTimeline} />
+        </Wrapper>
+    );
 }
 
 const Wrapper = styled.div`
@@ -22,7 +22,14 @@ const Wrapper = styled.div`
     && h1 {
         font-family: "Oswald", sans-serif;
         font-size: 43px;
+        margin-left: 17px;
         font-weight: 700;
         color: var(--heavy-text);
+    }
+
+    @media only screen and (max-width: 767px) {
+        width: 100vw;
+        margin-right: 0;
+        max-width: 100vw;
     }
 `;
