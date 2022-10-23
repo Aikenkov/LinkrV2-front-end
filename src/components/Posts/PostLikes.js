@@ -11,6 +11,7 @@ export default function PostLikes({ post }) {
     const [text, setText] = useState("");
     const { reload, setReload } = useContext(UserContext);
     const { id, user_id } = post;
+    console.log(id, user_id);
 
     const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
