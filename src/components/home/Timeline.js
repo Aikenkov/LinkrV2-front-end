@@ -27,6 +27,10 @@ const Wrapper = styled.div`
         color: var(--heavy-text);
     }
 
+    @media only screen and (max-width: 1023px) and (min-width: 768px) {
+        width: 60vw;
+    }
+
     @media only screen and (max-width: 767px) {
         width: 100vw;
         margin-right: 0;
