@@ -49,7 +49,8 @@ export async function postMetadata(body) {
 }
 
 export function getUser(id) {
-    const promise = axios.get(`${URL}/users/${id}`);
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/users/${id}`, config);
     return promise;
 }
 
@@ -67,7 +68,8 @@ export function deletePost(id) {
 }
 
 export function getTrending() {
-    const promise = axios.get(`${URL}/trending`);
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/trending`, config);
     return promise;
 }
 
@@ -95,7 +97,8 @@ export function insertLike(post_id) {
     return promise;
 }
 
-export async function getHashtagPost(tag) {
-    const promise = axios.get(`${URL}/hashtag/${tag}`);
+export function getHashtagPost(tag) {
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/hashtag/${tag}`, config);
     return promise;
 }
