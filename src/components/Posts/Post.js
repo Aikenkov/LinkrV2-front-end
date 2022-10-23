@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
-import EditPostForm from "./EditPost";
+import EditPostForm from "./EditPostForm";
 import { DeleteIcon, EditIcon } from "../common/Icons";
 import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
