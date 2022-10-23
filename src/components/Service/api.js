@@ -36,6 +36,12 @@ export function getTimeline() {
   const promise = axios.get(`${URL}/timeline`, config);
   return promise;
 }
+export function getSearchUsers(name) {
+    const config = createHeaders();
+
+    const promise = axios.get(`${URL}/search?name=${name}`, config);
+    return promise;
+}
 
 export function postMetadata(body) {
   const promise = axios.post(`${URL}/metadata`, body);
