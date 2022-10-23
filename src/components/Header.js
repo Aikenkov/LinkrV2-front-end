@@ -271,6 +271,7 @@ const FoundUser = styled.div`
   padding-left:5px ;
   align-items:center ;
   border-radius:8px;
+  cursor: pointer;
   :hover{
     filter:brightness(1.2);
   }
