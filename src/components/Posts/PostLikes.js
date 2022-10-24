@@ -37,8 +37,12 @@ export default function PostLikes({ post }) {
         if (userLike.length > 0 && postLikes.length === 1) {
             setText("Você e outras 0 pessoas");
         }
-        if (userLike.length > 0 && postLikes.length === 2) {
-            setText(`Você, ${othersLike[0].username} e outras 0 pessoas`);
+        if (userLike.length > 0 && postLikes.length >= 2) {
+            setText(
+                `Você, ${othersLike[0].username} e outras ${
+                    postLikes.length - 2
+                } pessoas`
+            );
         }
         if (userLike.length === 0 && postLikes.length >= 2) {
             setText(
