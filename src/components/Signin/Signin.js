@@ -111,10 +111,21 @@ const Logo = styled.div`
     flex-direction: column;
     justify-content: center;
     z-index: 1;
+    @media (max-width: 768px) {
+        box-sizing: border-box;
+        padding: 10px 17% 27px 17%;
+        width:100% ;
+        height:200px ;
+        margin-bottom:10px ;
+    }
 `;
 const Page = styled.div`
     height: 100vh;
     display: flex;
+    @media (max-width: 768px) {
+        display:flex;
+        flex-direction:column;
+    }
 `;
 
 const FormPage = styled.div`
@@ -126,6 +137,13 @@ const FormPage = styled.div`
     background-color: #333333;
     height: 100%;
     z-index: 1;
+    @media (max-width: 768px) {
+       width:100% ;
+       justify-content: flex-start;
+       margin-top: 35px;
+      /*  display:flex;
+       align-items:center ; */
+    }
 `;
 const Input = styled.input`
     background: #ffff;
@@ -191,6 +209,12 @@ const TextTittle = styled.div`
     text-align: left;
     color: #ffffff;
     width: 80%;
+    @media (max-width: 768px) {
+        width:100% ;
+        font-size: 76px;
+        line-height: 84px;
+        text-align:center ;
+    }
 `;
 const TextSubtitle = styled.div`
     font-family: "Oswald";
@@ -200,6 +224,11 @@ const TextSubtitle = styled.div`
     letter-spacing: 0em;
     text-align: left;
     width: 65%;
-
+    @media (max-width: 768px) {
+        width:100% ;
+        font-size: 23px;
+        line-height: 34px;
+        text-align:center ;
+    }
     color: #ffffff;
 `;
