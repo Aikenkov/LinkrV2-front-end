@@ -150,6 +150,10 @@ const TextInput = styled.div`
   position:relative;
     width: 100%;
     height: 45px;
+    @media (max-width: 768px) {
+        display:none;
+    }
+
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -191,6 +195,9 @@ const UserLogOUt = styled.div`
     margin-right: 8px;
     margin-bottom: 10px;
   }
+  @media (max-width: 768px) {
+        width: 40%;
+    }
 `;
 const LogOutUser = styled.div`
   margin-top: 72px;
