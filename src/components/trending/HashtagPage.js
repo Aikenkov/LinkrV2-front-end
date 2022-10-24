@@ -10,7 +10,7 @@ export default function HashtagPage() {
         <Wrapper>
             <Page>
                 <Title>
-                    <h1>{hashtag}</h1>
+                    <h1># {hashtag}</h1>
                 </Title>
                 <Posts func={getHashtagPost} param={hashtag} />
             </Page>
@@ -36,6 +36,7 @@ const Page = styled.div`
 
     @media only screen and (max-width: 767px) {
         margin-right: 0;
+        width: inherit;
     }
 `;
 
@@ -53,5 +54,8 @@ const Title = styled.div`
         font-weight: 700;
         color: var(--heavy-text);
         margin-bottom: 27px;
+        @media only screen and (max-width: 767px) {
+            margin-left: 17px;
+        }
     }
 `;

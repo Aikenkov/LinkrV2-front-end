@@ -39,6 +39,9 @@ export default function UserPosts() {
 const Wrapper = styled.div`
     display: flex;
     justify-content: center;
+    @media (max-width: 768px) {
+        justify-content:inherit;
+      }
 `;
 
 const Page = styled.div`
@@ -51,8 +54,9 @@ const Page = styled.div`
         margin-right: 0;
     }
 
-    @media only screen and (max-width: 1023px) and (min-width: 768px) {
-        width: 60vw;
+    @media only screen and (max-width: 767px) {
+        margin-right: 0;
+        width: inherit;
     }
 `;
 
@@ -71,5 +75,8 @@ const Title = styled.div`
         font-weight: 700;
         color: var(--heavy-text);
         margin-bottom: 28px;
+    }
+    @media (max-width: 768px) {
+        margin-left:17px;
     }
 `;
