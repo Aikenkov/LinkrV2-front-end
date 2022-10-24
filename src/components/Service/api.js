@@ -10,7 +10,6 @@ function createHeaders() {
     return config;
 }
 
-//const URL = "http://localhost:4000";
 const URL = "https://linkr-back-deploy.herokuapp.com";
 
 export function postSignUp(body) {
