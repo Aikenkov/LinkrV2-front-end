@@ -69,7 +69,10 @@ export default function Post({ post }) {
         <span>
           {myUsername === username ? (
             <MyUserDelete>
-              <span>{username}</span>
+              <Link to={`/user/${user_id}`}>
+                <span>{username}</span>
+              </Link>
+
               <div>
                 <span>
                   <EditIcon onClick={editedPost} />
@@ -79,7 +82,9 @@ export default function Post({ post }) {
               </div>
             </MyUserDelete>
           ) : (
-            <span>{username}</span>
+            <Link to={`/user/${user_id}`}>
+              <span>{username}</span>
+            </Link>
           )}
 
           {editOpen ? (
@@ -131,6 +136,11 @@ const PostContainer = styled.div`
   padding: 19px;
   margin-top: 16px;
 
+  a {
+    color: #ffffff;
+    font-weight: 400;
+  }
+
   textarea {
     background-color: #ffffff;
     color: #171717;
@@ -160,7 +170,6 @@ const PostContainer = styled.div`
     direction: ltr;
     color: #b7b7b7;
   }
-
   > span {
     width: 87%;
     max-width: 503px;
@@ -168,10 +177,10 @@ const PostContainer = styled.div`
 
   @media (max-width: 767px) {
     width: 100vw;
+    max-width: 100vw;
     border-radius: 0px;
     padding-right: 28px;
     box-sizing: border-box;
-
     > span {
       width: 85%;
     }
@@ -187,11 +196,9 @@ const PostContainer = styled.div`
 const MyUserDelete = styled.div`
   display: flex;
   justify-content: space-between;
-
   span {
     margin-right: 10px;
   }
-
   div {
     cursor: pointer;
   }
