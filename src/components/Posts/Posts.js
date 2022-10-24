@@ -68,6 +68,6 @@ const Wrapper = styled.div`
   }
 
   @media (max-width: 767px) {
-    width: 100%;
+    //width: 100%;
   }
 `;
