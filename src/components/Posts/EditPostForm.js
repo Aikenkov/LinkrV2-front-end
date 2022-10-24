@@ -8,7 +8,7 @@ export default function EditPostForm({
   text,
   setEditOpen,
   editText,
-  setEditText,
+  setEditText
 }) {
   const { reload, setReload } = useContext(UserContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,11 +38,13 @@ export default function EditPostForm({
 
     setIsLoading(true);
 
+    
     editPost({ text: editText }, id)
-      .catch(() => {
+      .catch((r) => {
         toast.error("Não foi possível salvar as alterações");
         setIsLoading(false);
         setEditOpen(true);
+        console.log(r);
       })
       .then(() => {
         setEditOpen(false);

@@ -15,21 +15,19 @@ export default function PostLikes({ post }) {
     const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
 
     useEffect(() => {
-        getPostLikes(id)
-            .catch((response) => {
-                console.log(response);
-            })
-            .then(async (response) => {
+        getPostLikes(id).then((response) => {
+            if (response) {
                 setPostLikes(response.data);
-            });
-    }, [postLikes]);
+            }
+        });
+    }, [reload]);
 
     const userLike = postLikes.filter((e) => {
         return e.username === myUsername;
     });
 
     const othersLike = postLikes.filter((e) => {
-        return e.user_id !== user_id;
+        return e.username !== myUsername;
     });
 
     useEffect(() => {
@@ -39,8 +37,12 @@ export default function PostLikes({ post }) {
         if (userLike.length > 0 && postLikes.length === 1) {
             setText("Você e outras 0 pessoas");
         }
-        if (userLike.length > 0 && postLikes.length === 2) {
-            setText(`Você, ${othersLike[0].username} e outras 0 pessoas`);
+        if (userLike.length > 0 && postLikes.length >= 2) {
+            setText(
+                `Você, ${othersLike[0].username} e outras ${
+                    postLikes.length - 2
+                } pessoas`
+            );
         }
         if (userLike.length === 0 && postLikes.length >= 2) {
             setText(

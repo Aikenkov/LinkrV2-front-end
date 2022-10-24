@@ -5,37 +5,43 @@ import styled from "styled-components";
 import Trending from "../trending/Trending";
 import { getUser, getUserPosts } from "../Service/api";
 
-export default function UserPosts(){
+export default function UserPosts() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
-    const [user,setUser] = useState({});
+    const [user, setUser] = useState({});
     useEffect(() => {
-        console.log("Entrei no use effect")
+        console.log("Entrei no use effect");
         const userPromisse = getUser(id);
-        userPromisse.then(p => setUser({...p.data}));
-        userPromisse.catch(p=> {alert("Este usuario não existe"); navigate("/home")});
+        userPromisse.then((p) => setUser({ ...p.data }));
+        userPromisse.catch((p) => {
+            alert("Este usuario não existe");
+            navigate("/home");
+        });
         const postsPromisse = getUserPosts(id);
-        postsPromisse.then(p => setPosts([...p.data]));
-    },[]);
-    return(
+        postsPromisse.then((p) => setPosts([...p.data]));
+    }, []);
+
+    return (
         <Wrapper>
             <Page>
                 <Title>
-                    <img src={user?.picture}/>
+                    <img src={user?.picture} />
                     <h1>{user?.username}'s posts </h1>
                 </Title>
-               <Posts func={getUserPosts} param={id}/>
+                <Posts func={getUserPosts} param={id} />
             </Page>
-                <Trending />
+            <Trending />
         </Wrapper>
-
     );
 }
 
 const Wrapper = styled.div`
     display: flex;
     justify-content: center;
+    @media (max-width: 768px) {
+        justify-content:inherit;
+      }
 `;
 
 const Page = styled.div`
@@ -43,21 +49,34 @@ const Page = styled.div`
     max-width: 611px;
     margin-right: 25px;
     margin-top: 125px;
+
+    @media only screen and (max-width: 767px) {
+        margin-right: 0;
+    }
+
+    @media only screen and (max-width: 767px) {
+        margin-right: 0;
+        width: inherit;
+    }
 `;
 
 const Title = styled.div`
-        display: flex;
-        img {
-            width: 53px;
-            height: 53px;
-            border-radius: 50%;
-            margin-right: 17px;
-            object-fit: cover;
-        }
-        h1 {
-            font-family: "Oswald", sans-serif;
-            font-size: 43px;
-            font-weight: 700;
-            color: var(--heavy-text);
-        }
-`
+    display: flex;
+    img {
+        width: 53px;
+        height: 53px;
+        border-radius: 50%;
+        margin-right: 17px;
+        object-fit: cover;
+    }
+    h1 {
+        font-family: "Oswald", sans-serif;
+        font-size: 43px;
+        font-weight: 700;
+        color: var(--heavy-text);
+        margin-bottom: 28px;
+    }
+    @media (max-width: 768px) {
+        margin-left:17px;
+    }
+`;

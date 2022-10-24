@@ -76,9 +76,8 @@ export default function Header() {
 
 function Search(){
   const [searchUser, setSearchUser] = useState('');
-  const [usersFound, setUsersFound] = useState('');
+  const [usersFound, setUsersFound] = useState([]);
   const navigate = useNavigate();
-
 
   function searchForUser(value){
     setSearchUser(value);
@@ -86,7 +85,7 @@ function Search(){
     getSearchUsers(value)
       .then((response) => {
         if(response.data.length === 0){
-          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', image:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
+          setUsersFound([{id: 0, username:'Não há usuarios com esse nome', picture_uri:'https://i.pinimg.com/originals/7c/95/27/7c95276e5d45d739ea83df851c2ca831.jpg'}])        
         } else{
           setUsersFound(response.data)
         }
@@ -112,19 +111,19 @@ function Search(){
                 minLength={3}
                 debounceTimeout={300}
                 type='text'
-                onChange={(e) => searchForUser(e.target.value)}
+                onChange={(e) => {searchForUser(e.target.value)}}
                 value={searchUser}
                 placeholder='Search for people '
               />
                 {
-                  usersFound === '' ?
+                  searchUser.length === 0  ?
                     <div/>
                   :
                     <SearchBox>
-                      {usersFound.map((user)=>{
+                      {usersFound.map((user, i)=>{
                         return(
-                          <FoundUser onClick={()=>{redirectUser(user)}}>
-                           <img src={user.image}/> {user.username}
+                          <FoundUser key={i} onClick={()=>{redirectUser(user)}}>
+                           <img src={user.picture_uri}/> {user.username}
                           </FoundUser>
                         )
                       })}
@@ -149,6 +148,10 @@ const TextInput = styled.div`
   position:relative;
     width: 100%;
     height: 45px;
+    @media (max-width: 768px) {
+        display:none;
+    }
+
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -189,7 +192,13 @@ const UserLogOUt = styled.div`
     font-size: 27px;
     margin-right: 8px;
     margin-bottom: 10px;
+    @media (max-width: 768px) {
+        margin-top:15px;
+    }
   }
+  @media (max-width: 768px) {
+        display: flex;
+    }
 `;
 const LogOutUser = styled.div`
   margin-top: 72px;
@@ -270,6 +279,7 @@ const FoundUser = styled.div`
   padding-left:5px ;
   align-items:center ;
   border-radius:8px;
+  cursor: pointer;
   :hover{
     filter:brightness(1.2);
   }
