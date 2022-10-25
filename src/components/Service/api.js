@@ -11,6 +11,7 @@ function createHeaders() {
 }
 
 const URL = "https://linkr-back-deploy.herokuapp.com";
+//const URL = "http://localhost:4000";
 
 export function postSignUp(body) {
     const promise = axios.post(`${URL}/signup`, body);
@@ -99,5 +100,16 @@ export function insertLike(post_id) {
 export function getHashtagPost(tag) {
     const config = createHeaders();
     const promise = axios.get(`${URL}/hashtag/${tag}`, config);
+    return promise;
+}
+
+export async function getPostComments(post_id) {
+    const promise = await axios.get(`${URL}/comments/${post_id}`);
+    return promise;
+}
+
+export async function insertComments(body) {
+    const config = createHeaders();
+    const promise = await axios.post(`${URL}/comments`, body, config);
     return promise;
 }
