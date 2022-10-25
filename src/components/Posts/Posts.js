@@ -1,6 +1,7 @@
 import { useEffect, useState, React, useContext } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import Post from "./Post";
+import ReloadNewPosts from "./ReloadNewPosts";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 
@@ -32,8 +33,9 @@ export default function Posts({ func, param }) {
     <NoPosts>{message}</NoPosts>
   ) : (
     <Wrapper>
+      <ReloadNewPosts />
       {post.map((posts) => (
-        <Post key={posts.id} post={posts}  />
+        <Post key={posts.id} post={posts} />
       ))}
     </Wrapper>
   );
