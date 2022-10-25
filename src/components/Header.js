@@ -76,9 +76,8 @@ export default function Header() {
 
 function Search(){
   const [searchUser, setSearchUser] = useState('');
-  const [usersFound, setUsersFound] = useState('');
+  const [usersFound, setUsersFound] = useState([]);
   const navigate = useNavigate();
-
 
   function searchForUser(value){
     setSearchUser(value);
@@ -112,19 +111,18 @@ function Search(){
                 minLength={3}
                 debounceTimeout={300}
                 type='text'
-                onChange={(e) => searchForUser(e.target.value)}
+                onChange={(e) => {searchForUser(e.target.value)}}
                 value={searchUser}
                 placeholder='Search for people '
               />
                 {
-                  usersFound === '' ?
+                  searchUser.length === 0  ?
                     <div/>
                   :
                     <SearchBox>
-                      {usersFound.map((user)=>{
-                        console.log(user.image, '*************')
+                      {usersFound.map((user, i)=>{
                         return(
-                          <FoundUser onClick={()=>{redirectUser(user)}}>
+                          <FoundUser key={i} onClick={()=>{redirectUser(user)}}>
                            <img src={user.picture_uri}/> {user.username}
                           </FoundUser>
                         )
@@ -194,9 +192,12 @@ const UserLogOUt = styled.div`
     font-size: 27px;
     margin-right: 8px;
     margin-bottom: 10px;
+    @media (max-width: 768px) {
+        margin-top:15px;
+    }
   }
   @media (max-width: 768px) {
-        width: 40%;
+        display: flex;
     }
 `;
 const LogOutUser = styled.div`

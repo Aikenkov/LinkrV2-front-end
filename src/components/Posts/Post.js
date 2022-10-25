@@ -85,21 +85,26 @@ export default function Post({ post }) {
                     />
                 </div>
 
-                <span>
-                    {myUsername === username ? (
-                        <MyUserDelete>
-                            <span>{username}</span>
-                            <div>
-                                <span>
-                                    <EditIcon onClick={editedPost} />
-                                </span>
+        <span>
+          {myUsername === username ? (
+            <MyUserDelete>
+              <Link to={`/user/${user_id}`}>
+                <span>{username}</span>
+              </Link>
 
-                                <DeleteIcon onClick={deletePost} />
-                            </div>
-                        </MyUserDelete>
-                    ) : (
-                        <span>{username}</span>
-                    )}
+              <div>
+                <span>
+                  <EditIcon onClick={editedPost} />
+                </span>
+
+                <DeleteIcon onClick={deletePost} />
+              </div>
+            </MyUserDelete>
+          ) : (
+            <Link to={`/user/${user_id}`}>
+              <span>{username}</span>
+            </Link>
+          )}
 
                     {editOpen ? (
                         <EditPostForm
@@ -182,18 +187,23 @@ const PostContainer = styled.div`
     margin-top: 16px;
     z-index: 1;
 
-    textarea {
-        background-color: #ffffff;
-        color: #171717;
-        width: 100%;
-        height: fit-content;
-        overflow-y: hidden;
-        overflow-x: hidden;
-        border-radius: 7px;
-        font-size: 14px;
-        margin-top: 5px;
-        border: none;
-    }
+  a {
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  textarea {
+    background-color: #ffffff;
+    color: #171717;
+    width: 100%;
+    height: fit-content;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 7px;
+    font-size: 14px;
+    margin-top: 5px;
+    border: none;
+  }
 
     & > :first-child {
         display: flex;
