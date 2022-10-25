@@ -1,13 +1,21 @@
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineComment } from "react-icons/ai";
 import styled from "styled-components";
+import UserContext from "../contexts/userContexts";
 
-export default function PostComments({ post }) {
-    const { id, user_id } = post;
-
+export default function PostCommentsIcon({
+    comments_length,
+    openComment,
+    setOpenComment,
+}) {
     return (
         <Wrapper>
-            <Comment />
-            <h4>0 comments</h4>
+            <Comment
+                onClick={() => {
+                    setOpenComment(!openComment);
+                }}
+            />
+            <h4>{comments_length} comments</h4>
         </Wrapper>
     );
 }

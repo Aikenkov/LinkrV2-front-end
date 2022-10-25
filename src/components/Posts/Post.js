@@ -1,4 +1,4 @@
-import { useEffect, useState, React } from "react";
+import { useEffect, useState, React, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
@@ -11,15 +11,19 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import PostLikes from "./PostLikes";
 import { ReactTagify } from "react-tagify";
-import PostComments from "./PostComments";
-
+import PostCommentsIcon from "./PostCommentsIcon";
+import { getPostComments } from "../Service/api";
+import UserContext from "../contexts/userContexts";
+import PostComment from "./PostComment";
 export default function Post({ post }) {
     const { username, picture, text, link, id, user_id } = post;
-
     const [metadataUrl, setMetadaUrl] = useState([]);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [editText, setEditText] = useState(text);
+    const [openComment, setOpenComment] = useState(false);
+    const { reload, setReload } = useContext(UserContext);
+    const [postComments, setPostComments] = useState([]);
 
     const navigate = useNavigate();
     const body = { url: link };
@@ -34,6 +38,14 @@ export default function Post({ post }) {
                 setMetadaUrl(response.data);
             });
     }, []);
+
+    useEffect(() => {
+        getPostComments(id).then((response) => {
+            if (response) {
+                setPostComments(response.data);
+            }
+        });
+    }, [reload]);
 
     function deletePost() {
         setIsOpen(true);
@@ -65,7 +77,11 @@ export default function Post({ post }) {
                         <Img src={picture} alt='perfil' />
                     </Link>
                     <PostLikes post={post} />
-                    <PostComments post={post} />
+                    <PostCommentsIcon
+                        comments_length={postComments.length}
+                        setOpenComment={setOpenComment}
+                        openComment={openComment}
+                    />
                 </div>
 
                 <span>
@@ -111,9 +127,33 @@ export default function Post({ post }) {
                     )}
                 </span>
             </PostContainer>
+            <PostCommentsContainer open={openComment}>
+                {postComments.map((comment) => {
+                    return <PostComment comment={comment} />;
+                })}
+            </PostCommentsContainer>
         </>
     );
 }
+
+const PostCommentsContainer = styled.div`
+    height: fit-content;
+    width: 100%;
+    z-index: -1;
+    border-radius: 0 0 16px 16px;
+    background-color: #1e1e1e;
+
+    transition: all ease-in 0.5s;
+    transition: transform ease-in 0.2s;
+
+    ${(props) => {
+        if (props.open) {
+            return `opacity: 1; height: fit-content; padding-top: 20px; transform: translateY(-20px);`;
+        } else {
+            return ` opacity: 0; height: 0px; transform: translateY(-200px);`;
+        }
+    }}
+`;
 
 const Img = styled.img`
     width: 50px;

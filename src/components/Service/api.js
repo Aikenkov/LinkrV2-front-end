@@ -102,3 +102,8 @@ export function getHashtagPost(tag) {
     const promise = axios.get(`${URL}/hashtag/${tag}`, config);
     return promise;
 }
+
+export async function getPostComments(post_id) {
+    const promise = await axios.get(`${URL}/comments/${post_id}`);
+    return promise;
+}
