@@ -107,3 +107,10 @@ export async function getPostComments(post_id) {
     const promise = await axios.get(`${URL}/comments/${post_id}`);
     return promise;
 }
+
+export async function insertComments(body) {
+    console.log(body);
+    const config = createHeaders();
+    const promise = await axios.post(`${URL}/comments`, body, config);
+    return promise;
+}

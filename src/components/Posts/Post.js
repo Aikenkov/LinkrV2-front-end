@@ -15,6 +15,7 @@ import PostCommentsIcon from "./PostCommentsIcon";
 import { getPostComments } from "../Service/api";
 import UserContext from "../contexts/userContexts";
 import PostComment from "./PostComment";
+import NewComment from "./InsertComment";
 export default function Post({ post }) {
     const { username, picture, text, link, id, user_id } = post;
     const [metadataUrl, setMetadaUrl] = useState([]);
@@ -37,7 +38,7 @@ export default function Post({ post }) {
             .then((response) => {
                 setMetadaUrl(response.data);
             });
-    }, []);
+    }, [reload]);
 
     useEffect(() => {
         getPostComments(id).then((response) => {
@@ -137,6 +138,7 @@ export default function Post({ post }) {
                         />
                     );
                 })}
+                <NewComment post_id={id} />
             </PostCommentsContainer>
         </>
     );
@@ -145,7 +147,7 @@ export default function Post({ post }) {
 const PostCommentsContainer = styled.div`
     height: fit-content;
     width: 100%;
-    z-index: -1;
+    z-index: 0;
     border-radius: 0 0 16px 16px;
     background-color: #1e1e1e;
 
@@ -156,7 +158,7 @@ const PostCommentsContainer = styled.div`
         if (props.open) {
             return `opacity: 1; height: fit-content; padding-top: 20px; transform: translateY(-20px);`;
         } else {
-            return ` opacity: 0; height: 0px; transform: translateY(-200px);`;
+            return ` opacity: 0; height: 0px; visibility: hidden; ;transform: translateY(-200px);`;
         }
     }}
 `;
@@ -178,6 +180,7 @@ const PostContainer = styled.div`
     display: flex;
     padding: 19px;
     margin-top: 16px;
+    z-index: 1;
 
     textarea {
         background-color: #ffffff;
