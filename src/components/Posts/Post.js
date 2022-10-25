@@ -85,26 +85,26 @@ export default function Post({ post }) {
                     />
                 </div>
 
-        <span>
-          {myUsername === username ? (
-            <MyUserDelete>
-              <Link to={`/user/${user_id}`}>
-                <span>{username}</span>
-              </Link>
-
-              <div>
                 <span>
-                  <EditIcon onClick={editedPost} />
-                </span>
+                    {myUsername === username ? (
+                        <MyUserDelete>
+                            <Link to={`/user/${user_id}`}>
+                                <span>{username}</span>
+                            </Link>
 
-                <DeleteIcon onClick={deletePost} />
-              </div>
-            </MyUserDelete>
-          ) : (
-            <Link to={`/user/${user_id}`}>
-              <span>{username}</span>
-            </Link>
-          )}
+                            <div>
+                                <span>
+                                    <EditIcon onClick={editedPost} />
+                                </span>
+
+                                <DeleteIcon onClick={deletePost} />
+                            </div>
+                        </MyUserDelete>
+                    ) : (
+                        <Link to={`/user/${user_id}`}>
+                            <span>{username}</span>
+                        </Link>
+                    )}
 
                     {editOpen ? (
                         <EditPostForm
@@ -166,6 +166,11 @@ const PostCommentsContainer = styled.div`
             return ` opacity: 0; height: 0px; visibility: hidden; ;transform: translateY(-200px);`;
         }
     }}
+
+    @media (max-width: 767px) {
+        width: 100vw;
+        border-radius: 0px;
+    }
 `;
 
 const Img = styled.img`
@@ -187,23 +192,23 @@ const PostContainer = styled.div`
     margin-top: 16px;
     z-index: 1;
 
-  a {
-    color: #ffffff;
-    font-weight: 400;
-  }
+    a {
+        color: #ffffff;
+        font-weight: 400;
+    }
 
-  textarea {
-    background-color: #ffffff;
-    color: #171717;
-    width: 100%;
-    height: fit-content;
-    overflow-y: hidden;
-    overflow-x: hidden;
-    border-radius: 7px;
-    font-size: 14px;
-    margin-top: 5px;
-    border: none;
-  }
+    textarea {
+        background-color: #ffffff;
+        color: #171717;
+        width: 100%;
+        height: fit-content;
+        overflow-y: hidden;
+        overflow-x: hidden;
+        border-radius: 7px;
+        font-size: 14px;
+        margin-top: 5px;
+        border: none;
+    }
 
     & > :first-child {
         display: flex;
