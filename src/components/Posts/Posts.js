@@ -33,7 +33,7 @@ export default function Posts({ func, param }) {
     <NoPosts>{message}</NoPosts>
   ) : (
     <Wrapper>
-      <ReloadNewPosts />
+      <ReloadNewPosts postsLength={post.length} />
       {post.map((posts) => (
         <Post key={posts.id} post={posts} />
       ))}
@@ -69,7 +69,4 @@ const Wrapper = styled.div`
     margin-top: 7px;
   }
 
-  @media (max-width: 767px) {
-    //width: 100%;
-  }
 `;
