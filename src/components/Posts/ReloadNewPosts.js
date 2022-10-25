@@ -40,17 +40,17 @@ export default function ReloadNewPosts({ postsLength }) {
 }
 
 const ButtonNewPosts = styled.button`
+  width: 100%;
   height: 61px;
   background-color: #1877f2;
-  width: 100%;
   border-radius: 16px;
   border: none;
   margin-top: 40px;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #ffffff;
+  cursor: pointer;
 
   h2 {
     font-weight: 400;

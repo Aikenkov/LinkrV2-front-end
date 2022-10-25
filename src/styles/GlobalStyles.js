@@ -25,6 +25,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	z-index: 3;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -55,6 +56,9 @@ table {
 	border-spacing: 0;
 }
 
+.react-modal{
+	z-index: 3;
+}
 
 
   //-----------------------------------------------------------------------------
@@ -67,7 +71,7 @@ a{
 body{
     background-color: var(--main-color);
 	font-family: 'Lato', sans-serif;
-
+	z-index: -3;
 }
 
 *{ 
@@ -89,8 +93,6 @@ body{
     --heavy-text: #FFFFFF;
     --liked-heart: #AC0000;
     --likes-text: #505050;
-
-    
 
 
 

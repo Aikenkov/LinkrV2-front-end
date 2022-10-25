@@ -7,11 +7,7 @@ import { ThreeDots } from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-export default function ModalContainer({
-  modalIsOpen,
-  setIsOpen,
-  id
-}) {
+export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
   const { reload, setReload } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
@@ -72,7 +68,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     borderRadius: "50px",
-    backgroundColor: "#333333",
+    backgroundColor: "#333333"
   },
 };
 
