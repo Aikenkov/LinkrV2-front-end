@@ -1,13 +1,24 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-export default function PostComment({ comment }) {
+export default function PostComment({ comment, post_user }) {
     const { picture_uri, username, text, user_id } = comment;
+    const [infoText, setInfoText] = useState("");
+
+    useEffect(() => {
+        if (post_user === user_id) {
+            setInfoText("• post’s author");
+        }
+    });
+
     return (
         <Wrapper>
             <Comment>
                 <img src={picture_uri} alt='perfil' />
                 <div>
-                    <h2>{username}</h2>
+                    <h2>
+                        {username} <span>{infoText}</span>
+                    </h2>
                     <p>{text}</p>
                 </div>
             </Comment>
@@ -54,5 +65,12 @@ const Comment = styled.div`
         font-weight: 700;
         margin: 0;
         margin-bottom: 4px;
+    }
+
+    && span {
+        color: #565656;
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0;
     }
 `;

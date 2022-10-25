@@ -128,8 +128,14 @@ export default function Post({ post }) {
                 </span>
             </PostContainer>
             <PostCommentsContainer open={openComment}>
-                {postComments.map((comment) => {
-                    return <PostComment comment={comment} />;
+                {postComments.map((comment, i) => {
+                    return (
+                        <PostComment
+                            key={i}
+                            comment={comment}
+                            postUser={user_id}
+                        />
+                    );
                 })}
             </PostCommentsContainer>
         </>
