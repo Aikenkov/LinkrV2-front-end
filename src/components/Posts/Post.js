@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import PostLikes from "./PostLikes";
 import { ReactTagify } from "react-tagify";
+import PostComments from "./PostComments";
 
 export default function Post({ post }) {
     const { username, picture, text, link, id, user_id } = post;
@@ -64,6 +65,7 @@ export default function Post({ post }) {
                         <Img src={picture} alt='perfil' />
                     </Link>
                     <PostLikes post={post} />
+                    <PostComments post={post} />
                 </div>
 
                 <span>

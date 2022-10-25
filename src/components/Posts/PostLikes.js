@@ -130,9 +130,6 @@ const LikesContainer = styled.div`
         color: var(--heavy-text);
         padding: 0;
     }
-    && h4:hover ~ div {
-        display: flex;
-    }
 `;
 
 const FillHeart = styled(BsFillHeartFill)`
