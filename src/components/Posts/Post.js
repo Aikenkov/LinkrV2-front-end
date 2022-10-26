@@ -16,6 +16,7 @@ import { getPostComments } from "../Service/api";
 import UserContext from "../contexts/userContexts";
 import PostComment from "./PostComment";
 import NewComment from "./InsertComment";
+
 export default function Post({ post }) {
   const { username, picture, text, link, id, user_id } = post;
   const [metadataUrl, setMetadaUrl] = useState([]);
@@ -133,6 +134,7 @@ export default function Post({ post }) {
           )}
         </span>
       </PostContainer>
+
       <PostCommentsContainer open={openComment}>
         {postComments.map((comment, i) => {
           return <PostComment key={i} comment={comment} postUser={user_id} />;
@@ -149,7 +151,6 @@ const PostCommentsContainer = styled.div`
   z-index: 0;
   border-radius: 0 0 16px 16px;
   background-color: #1e1e1e;
-
   transition: all ease-in 0.5s;
   transition: transform ease-in 0.2s;
 
@@ -229,16 +230,14 @@ const PostContainer = styled.div`
   @media (max-width: 767px) {
     width: 100vw;
     max-width: 100vw;
-
     border-radius: 0px;
     padding-right: 28px;
     box-sizing: border-box;
-
     > span {
       width: 85%;
     }
   }
-
+  
   @media (min-width: 768px) and (max-width: 1024px) {
     > span {
       width: 90%;
@@ -249,11 +248,9 @@ const PostContainer = styled.div`
 const MyUserDelete = styled.div`
   display: flex;
   justify-content: space-between;
-
   span {
     margin-right: 10px;
   }
-
   div {
     cursor: pointer;
   }

@@ -85,7 +85,7 @@ export default function NewPost() {
 
 const Wrapper = styled.div`
     display: flex;
-
+    z-index: 3;
     width: 100%;
     min-height: 209px;
     position: relative;
@@ -120,6 +120,7 @@ const Wrapper = styled.div`
     }
 
     button {
+        z-index: 5;
         position: absolute;
         right: 22px;
         bottom: 16px;
