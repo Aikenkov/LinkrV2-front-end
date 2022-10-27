@@ -139,7 +139,7 @@ export default function Post({ post }) {
                         <PostComment
                             key={i}
                             comment={comment}
-                            postUser={user_id}
+                            post_user={user_id}
                         />
                     );
                 })}
