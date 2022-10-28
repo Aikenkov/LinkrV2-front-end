@@ -21,6 +21,7 @@ export default function NewComment(post_id) {
                 console.log(response);
             })
             .then(() => {
+                setText("");
                 setReload(reload + 1);
             });
     }
