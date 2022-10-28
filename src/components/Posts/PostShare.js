@@ -8,7 +8,7 @@ export default function PostShare({post_id,setIsOpenShare}){
 
     const [reposts, setReposts] = useState([]);
     const { reload, setReload } = useContext(UserContext);
-
+    console.log(reposts);
     useEffect(() => {
         getSharesNumber(post_id).then(p => setReposts(p.data));
     },[reload]);

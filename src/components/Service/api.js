@@ -11,6 +11,7 @@ function createHeaders() {
 }
 
 const URL = "https://linkr-back-deploy.herokuapp.com";
+//const URL = "http://localhost:4000";
 
 export function postSignUp(body) {
   const promise = axios.post(`${URL}/signup`, body);
