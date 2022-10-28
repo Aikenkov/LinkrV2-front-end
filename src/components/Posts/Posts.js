@@ -23,6 +23,7 @@ export default function Posts({ func, param }) {
   useInterval(() => {
     if (window.scrollY === 0) {
       setHasMorePosts(true);
+      setPage(1);
     }
   }, 5000);
 
@@ -74,6 +75,9 @@ export default function Posts({ func, param }) {
       .then((response) => {
         if (response.data.length < 10) {
           setHasMorePosts(false);
+          setPage(1);
+        } else {
+          setPage(page + 1);
         }
 
         setPost([...post, ...response.data]);
