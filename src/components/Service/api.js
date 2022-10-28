@@ -42,13 +42,6 @@ export function getTimeline(page) {
   return promise;
 }
 
-// export function getTimeline() {
-//   const config = createHeaders();
-
-//   const promise = axios.get(`${URL}/timeline`, config);
-//   return promise;
-// }
-
 export function getSearchUsers(name) {
   const config = createHeaders();
 
