@@ -110,6 +110,14 @@ export async function getFollowing(id) {
     const promise = await axios.get(`${URL}/follow/${id}`, config);
     return promise;
 }
+export async function getFollowedUser() {
+
+    const config = createHeaders();
+
+
+    const promise = await axios.get(`${URL}/followed`, config);
+    return promise;
+}
 
 export function insertLike(post_id) {
     const config = createHeaders();
