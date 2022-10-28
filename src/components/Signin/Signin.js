@@ -28,6 +28,7 @@ export default function SignIn() {
         postSignIn(body)
             .then((response) => {
                 setUsers(response.data);
+                console.log(response.data);
                 const serializedUser = JSON.stringify(response.data);
                 localStorage.setItem("userLinkr", serializedUser);
                 setLoggedUser(response.data);
