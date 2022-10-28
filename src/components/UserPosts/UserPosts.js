@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Posts from "../Posts/Posts";
 import styled from "styled-components";
 import Trending from "../trending/Trending";
 import { getUser, getUserPosts, postFollow, deleteFollow, getFollowing } from "../Service/api";
+import UserContext from "../contexts/userContexts";
 
 export default function UserPosts() {
     const { id } = useParams();
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
     const [user, setUser] = useState({});
-    const [idSeguido, setIdSeguido] = useState();
-    const [followingUser, setFollowingUser] = useState(false)
-    
+    const myprofileUser = JSON.parse(localStorage.getItem("userLinkr")).id
+    const [followingUser, setFollowingUser] = useState(false);
+    const [myprofile, setMyprofile] = useState(false);
     useEffect(() => {
         const userPromisse = getUser(id);
         userPromisse.then((p) => setUser({ ...p.data }));
@@ -34,6 +35,9 @@ export default function UserPosts() {
         .catch((error)=>{
             console.log(error)
         })
+        if(parseInt(id) === myprofileUser){
+            setMyprofile(true)
+        }
     }, []);
 
 
@@ -69,7 +73,7 @@ export default function UserPosts() {
     }
 
   
-   
+   console.log(id,myprofileUser,'*******')
 
     return (
         <Wrapper>
@@ -80,19 +84,32 @@ export default function UserPosts() {
                 </Title>
                 <Posts func={getUserPosts} param={id} />
             </Page>
-            <Content>
+            {
+                myprofile ?
+
+                    <Content>
+
+                        <Trending />
+                    </Content>  
+                :
+                <Content>
                 {
                     followingUser  ?
                         <Unfollow onClick={()=>{following('unfollow')}}>
                             Unfollow
                         </Unfollow>
-                    :
+                    : 
+                     
                         <Follow onClick={()=>{following('follow')}}>
-                            Follow
-                         </Follow>
+                         Follow
+                        </Follow>
+                        
                 }
                 <Trending />
             </Content>  
+
+            }
+            
         </Wrapper>
     );
 }
@@ -103,14 +120,14 @@ const Content = styled.div`
     position:relative ;
 `
 const Follow = styled.div`
-    width: 40%;
+    width: 112px;
     height: 40px;
     display:flex;
     align-items:center ;
     justify-content: center ;
     position: absolute ;
     top:135px;
-    right:25px;
+    left:156px ;
     background-color:#1877F2;
     border-radius:5px;
 
@@ -122,17 +139,18 @@ const Follow = styled.div`
     text-align: left;
     color: #FFFF;
     cursor:pointer ;
+    
 
 `
 const Unfollow = styled.div`
-        width: 40%;
+        width: 112px;
     height: 40px;
     display:flex;
     align-items:center ;
     justify-content: center ;
     position: absolute ;
     top:135px;
-    right:25px;
+    left:156px ;
     background-color:#FFFF;
     border-radius:5px;
 
