@@ -133,3 +133,15 @@ export async function insertComments(body) {
     const promise = await axios.post(`${URL}/comments`, body, config);
     return promise;
 }
+
+export function sharePost(post_id){
+    const config = createHeaders();
+    const promise = axios.post(`${URL}/share/${post_id}`, {}, config);
+    return promise;
+}
+
+export function getSharesNumber(post_id){
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/share/${post_id}`, config);
+    return promise;
+}

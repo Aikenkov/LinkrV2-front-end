@@ -4,10 +4,11 @@ import { postMetadata } from "../Service/api";
 import ModalContainer from "./DeletePost";
 import LinkPreview from "./LinkPreview";
 import EditPostForm from "./EditPostForm";
-import { DeleteIcon, EditIcon } from "../common/Icons";
+import { DeleteIcon, EditIcon, ShareIcon } from "../common/Icons";
 import { ThreeDots } from "react-loader-spinner";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ShareContainer from "./ShareContainer";
 import styled from "styled-components";
 import PostLikes from "./PostLikes";
 import { ReactTagify } from "react-tagify";
@@ -16,16 +17,18 @@ import { getPostComments } from "../Service/api";
 import UserContext from "../contexts/userContexts";
 import PostComment from "./PostComment";
 import NewComment from "./InsertComment";
+import PostShare from "./PostShare";
 export default function Post({ post }) {
-    const { username, picture, text, link, id, user_id } = post;
+    const { username, picture, text, link, id, user_id, sharer } = post;
     const [metadataUrl, setMetadaUrl] = useState([]);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalIsOpenShare, setIsOpenShare] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [editText, setEditText] = useState(text);
     const [openComment, setOpenComment] = useState(false);
-    const { reload, setReload } = useContext(UserContext);
+    const { reload, setReload, users } = useContext(UserContext);
     const [postComments, setPostComments] = useState([]);
-
+    const localUser = JSON.parse(localStorage.getItem("userLinkr"))
     const navigate = useNavigate();
     const body = { url: link };
     const myUsername = JSON.parse(localStorage.getItem("userLinkr")).username;
@@ -59,6 +62,9 @@ export default function Post({ post }) {
             setEditText(text);
         }
     }
+    function shareIdPost() {
+        setIsOpenShare(true);
+    }
 
     return (
         <>
@@ -71,8 +77,18 @@ export default function Post({ post }) {
                     id={id}
                 />
             ) : null}
-
-            <PostContainer>
+            {modalIsOpenShare ? (
+                <ShareContainer
+                    modalIsOpenShare={modalIsOpenShare}
+                    setIsOpenShare={setIsOpenShare}
+                    id={id}
+                />
+            ) : null}
+            <ShareInfo teste={sharer}>
+                <ShareIcon/>
+                <h3>Re-posted by <strong>{localUser.username === sharer ? 'you' : sharer}</strong></h3>
+            </ShareInfo>
+            <PostContainer margin={sharer}>
                 <div>
                     <Link to={`/user/${user_id}`}>
                         <Img src={picture} alt='perfil' />
@@ -83,6 +99,7 @@ export default function Post({ post }) {
                         setOpenComment={setOpenComment}
                         openComment={openComment}
                     />
+                    <PostShare post_id={id} setIsOpenShare={setIsOpenShare}/>
                 </div>
 
                 <span>
@@ -189,8 +206,7 @@ const PostContainer = styled.div`
     border-radius: 16px;
     display: flex;
     padding: 19px;
-    margin-top: 16px;
-    z-index: 1;
+    margin-top: ${p => p.margin ? '0' : '16px'};
 
     a {
         color: #ffffff;
@@ -264,3 +280,28 @@ const MyUserDelete = styled.div`
         cursor: pointer;
     }
 `;
+
+const ShareInfo = styled.div`
+    width: 100%;
+    height: 50px;
+    background-color: #1e1e1e;
+    border-radius: 16px 16px 0 0 ;
+    z-index: -1;
+    margin-top: 16px;
+    transform: translateY(20px);
+    h3{
+        font-weight: 200;
+        font-size: 13px;
+        color: #FFFFFF;
+        margin-top: 10px;
+        strong{
+            font-weight: 800;
+        }
+    }
+    svg{
+        font-size: 20px;
+        margin-top: 5px;
+        margin: 7px 5px 0 13px;
+    }
+    display: ${p => p.teste ? 'flex' : 'none'}
+`
