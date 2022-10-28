@@ -3,10 +3,12 @@ import { ThreeDots } from "react-loader-spinner";
 import Post from "./Post";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
+import { getFollows } from "../Service/api";
 
 export default function Posts({ func, param }) {
   const [post, setPost] = useState([]);
   const { reload, setReload } = useContext(UserContext);
+  const [follows, setFollows] = useState([]);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
@@ -26,10 +28,20 @@ export default function Posts({ func, param }) {
           setMessage("There are no posts yet");
         }
       });
+      getFollows().then(p => setFollows(p.data));
   }, [reload]);
+  
+  function verifyNoPost(){
+    if(follows.length === 0){
+      return "You don't follow anyone yet. Search for new friends!"
+    }
+    if(follows.length !== 0){
+      return "No posts found from your friends!"
+    }
+  }
 
   return post.length === 0 ? (
-    <NoPosts>{message}</NoPosts>
+    <NoPosts>{verifyNoPost()}</NoPosts>
   ) : (
     <Wrapper>
       {post.map((posts) => (
