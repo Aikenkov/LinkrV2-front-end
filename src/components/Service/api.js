@@ -153,3 +153,9 @@ export function getSharesNumber(post_id){
     const promise = axios.get(`${URL}/share/${post_id}`, config);
     return promise;
 }
+
+export function getFollows(){
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/follows`, config);
+    return promise;
+}
