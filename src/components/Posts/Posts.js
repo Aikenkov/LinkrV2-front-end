@@ -9,17 +9,17 @@ import { getFollows, getAllPosts } from "../Service/api";
 import LoadingIcon from "../common/TailSpin";
 
 export default function Posts({ func, param }) {
-  const [post, setPost] = useState([]);
   const [allPosts, setAllPosts] = useState(0);
   const { reload, setReload } = useContext(UserContext);
   const [follows, setFollows] = useState([]);
   const [hasMorePosts, setHasMorePosts] = useState(true);
+  const [post, setPost] = useState([]);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
 
   useEffect(() => {
-    param = param ? param : 0;
+    param = param ? param : '';
     func(param)
       .catch(() => {
         setMessage(

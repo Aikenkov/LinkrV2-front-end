@@ -31,6 +31,7 @@ export default function ShareContainer({
       .then(() => {
         setIsOpenShare(false);
         setReload(reload => reload +1);
+        window.location.reload(false);
       });
   }
 

@@ -39,6 +39,7 @@ export default function NewPost() {
           link: "",
           text: "",
         });
+        window.location.reload(false);
       })
       .catch((err) => {
         setTimeout(() => setIsLoading(false), 1000);
