@@ -1,15 +1,34 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import UserContext from "../contexts/userContexts";
+import { getSearchFollowed } from "../Service/api";
 
 export default function PostComment({ comment, post_user }) {
     const { picture_uri, username, text, user_id } = comment;
     const [infoText, setInfoText] = useState("");
+    const [followingUser, setFollowingUser] = useState(false);
+    const { following } = useContext(UserContext);
 
     useEffect(() => {
+        if (following.length > 0) {
+            const isFollowing = following.filter((e) => {
+                return e.followed === user_id;
+            });
+
+            if (isFollowing.length > 0) {
+                setFollowingUser(true);
+            }
+        }
+    }, []);
+
+    useEffect(() => {
+        if (followingUser) {
+            setInfoText("• following");
+        }
         if (post_user === user_id) {
             setInfoText("• post’s author");
         }
-    });
+    }, [followingUser]);
 
     return (
         <Wrapper>

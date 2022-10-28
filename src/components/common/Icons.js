@@ -1,11 +1,10 @@
 import { AiFillDelete } from "react-icons/ai";
 import { TiPencil } from "react-icons/ti";
-import { TfiReload } from "react-icons/tfi";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { HiOutlineArrowsRightLeft } from "react-icons/hi2";
 
 const DeleteIcon = AiFillDelete;
 const EditIcon = TiPencil;
-const ReloadIcon = TfiReload;
-const LoadingIcon = AiOutlineLoading3Quarters;
+const ShareIcon = HiOutlineArrowsRightLeft; 
 
-export { DeleteIcon, EditIcon, ReloadIcon, LoadingIcon };
+
+export { DeleteIcon, EditIcon, ShareIcon };

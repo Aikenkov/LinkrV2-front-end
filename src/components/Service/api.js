@@ -14,14 +14,18 @@ function createHeaders() {
 const URL = "http://localhost:5000";
 
 export function postSignUp(body) {
-  const promise = axios.post(`${URL}/signup`, body);
-  console.log(body, "************");
-  return promise;
+    const promise = axios.post(`${URL}/signup`, body);
+    return promise;
+}
+export function postFollow(body) {
+    const config = createHeaders();
+
+    const promise = axios.post(`${URL}/follow`, body, config);
+    return promise;
 }
 export function postSignIn(body) {
-  const promise = axios.post(`${URL}/signin`, body);
-  console.log(body, "************");
-  return promise;
+    const promise = axios.post(`${URL}/signin`, body);
+    return promise;
 }
 
 export function postPublish(body) {
@@ -76,6 +80,16 @@ export function deletePost(id) {
   const promise = axios.delete(`${URL}/posts/${id}`, config);
   return promise;
 }
+export function deleteFollow(body) {
+    const config = createHeaders();
+
+    const promise = axios.delete(`${URL}/follow`, {
+        data: body,
+        headers: config.headers,
+    });
+
+    return promise;
+}
 
 export function getTrending() {
   const config = createHeaders();
@@ -85,7 +99,6 @@ export function getTrending() {
 
 export function editPost(body, id) {
   const config = createHeaders();
-
   const promise = axios.put(`${URL}/posts/${id}`, body, config);
   return promise;
 }
@@ -99,6 +112,16 @@ export function removeUserLike(post_id) {
 export async function getPostLikes(post_id) {
   const promise = await axios.get(`${URL}/likes/${post_id}`);
   return promise;
+}
+export async function getFollowing(id) {
+    const config = createHeaders();
+    const promise = await axios.get(`${URL}/follow/${id}`, config);
+    return promise;
+}
+export async function getFollowedUser() {
+    const config = createHeaders();
+    const promise = await axios.get(`${URL}/followed`, config);
+    return promise;
 }
 
 export function insertLike(post_id) {
@@ -122,4 +145,22 @@ export async function insertComments(body) {
   const config = createHeaders();
   const promise = await axios.post(`${URL}/comments`, body, config);
   return promise;
+}
+
+export function sharePost(post_id){
+    const config = createHeaders();
+    const promise = axios.post(`${URL}/share/${post_id}`, {}, config);
+    return promise;
+}
+
+export function getSharesNumber(post_id){
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/share/${post_id}`, config);
+    return promise;
+}
+
+export function getFollows(){
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/follows`, config);
+    return promise;
 }

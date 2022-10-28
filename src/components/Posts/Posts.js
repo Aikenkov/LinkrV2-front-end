@@ -1,19 +1,29 @@
 import { useEffect, useState, React, useContext } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import InfiniteScroll from "react-infinite-scroller";
+import InfiniteScroll from "react-infinite-scroll-component";
 import Post from "./Post";
 import ReloadNewPosts from "./ReloadNewPosts";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
+import { getFollows } from "../Service/api";
 import LoadingIcon from "../common/TailSpin";
+import useInterval from "use-interval";
 
-export default function Posts({ func, param, refreshPage, setRefreshPage }) {
+export default function Posts({ func, param }) {
   const [post, setPost] = useState([]);
   const { reload, setReload } = useContext(UserContext);
+  const [follows, setFollows] = useState([]);
   const [hasMorePosts, setHasMorePosts] = useState(true);
+  const [page, setPage] = useState(1);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
+
+  useInterval(() => {
+    if (window.scrollY === 0) {
+      setHasMorePosts(true);
+    }
+  }, 5000);
 
   useEffect(() => {
     param = param ? param : 0;
@@ -28,15 +38,26 @@ export default function Posts({ func, param, refreshPage, setRefreshPage }) {
 
         if (response.data.length === 0) {
           setMessage("There are no posts yet");
+          setHasMorePosts(false);
         }
 
         if (response.data.length < 10) {
           setHasMorePosts(false);
-        } 
+        }
       });
+    getFollows().then((p) => setFollows(p.data));
   }, [reload]);
 
-  function loadMorePosts(page) {
+  function verifyNoPost() {
+    if (follows.length === 0) {
+      return "You don't follow anyone yet. Search for new friends!";
+    }
+    if (follows.length !== 0) {
+      return "No posts found from your friends!";
+    }
+  }
+
+  function loadMorePosts() {
     func(page)
       .catch((response) => {
         console.log(response);
@@ -44,6 +65,9 @@ export default function Posts({ func, param, refreshPage, setRefreshPage }) {
       .then((response) => {
         if (response.data.length < 10) {
           setHasMorePosts(false);
+          setPage(1);
+        } else {
+          setPage(page + 1);
         }
 
         setPost([...post, ...response.data]);
@@ -51,14 +75,14 @@ export default function Posts({ func, param, refreshPage, setRefreshPage }) {
   }
 
   return post.length === 0 ? (
-    <NoPosts>{message}</NoPosts>
+    <NoPosts>{verifyNoPost()}</NoPosts>
   ) : (
     <Wrapper>
       <ReloadNewPosts postsLength={post.length} />
 
       <InfiniteScroll
-        pageStart={0}
-        loadMore={loadMorePosts}
+        dataLength={post.length}
+        next={loadMorePosts}
         hasMore={hasMorePosts}
         loader={
           <Loading key={0}>

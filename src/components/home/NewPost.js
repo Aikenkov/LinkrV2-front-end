@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { postPublish } from "../Service/api";
 import UserContext from "../contexts/userContexts";
 
-export default function NewPost({ setRefreshPage }) {
+export default function NewPost() {
   const { reload, setReload } = useContext(UserContext);
   const [form, setForm] = useState({
     link: "",
@@ -39,8 +39,6 @@ export default function NewPost({ setRefreshPage }) {
           link: "",
           text: "",
         });
-        setRefreshPage(true);
-        //window.location.reload();
       })
       .catch((err) => {
         setTimeout(() => setIsLoading(false), 1000);

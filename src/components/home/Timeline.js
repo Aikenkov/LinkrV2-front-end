@@ -1,24 +1,20 @@
 import styled from "styled-components";
 import NewPost from "./NewPost";
 import Posts from "../Posts/Posts";
-import { getTimeline, getSearchUsers } from "../Service/api";
-import { useState } from "react";
+import { getTimeline, getSearchUsers, getFollowedUser } from "../Service/api";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DebounceInput } from "react-debounce-input";
+import UserContext from "../contexts/userContexts";
 
 export default function Timeline() {
-  const [refreshPage, setRefreshPage] = useState(false);
   return (
     <Content>
       <Search />
       <Wrapper>
         <h1>timeline</h1>
-        <NewPost setRefreshPage={setRefreshPage} />
-        <Posts
-          func={getTimeline}
-          refreshPage={refreshPage}
-          setRefreshPage={setRefreshPage}
-        />
+        <NewPost />
+        <Posts func={getTimeline} />
       </Wrapper>
     </Content>
   );
@@ -27,7 +23,19 @@ export default function Timeline() {
 function Search() {
   const [searchUser, setSearchUser] = useState("");
   const [usersFound, setUsersFound] = useState([]);
+  const { following, setFollowing } = useContext(UserContext);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getFollowedUser()
+      .then((res) => {
+        setFollowing(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   function searchForUser(value) {
     setSearchUser(value);
