@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { getTimeline } from "../Service/api";
+import { getAllPosts } from "../Service/api";
 import UserContext from "../contexts/userContexts";
 import Reload from "../../assets/reloadVector.svg";
 import useInterval from "use-interval";
@@ -10,7 +10,7 @@ export default function ReloadNewPosts({ postsLength }) {
   const { reload, setReload } = useContext(UserContext);
 
   useInterval(() => {
-    getTimeline()
+    getAllPosts()
       .catch((response) => console.log(response))
       .then((response) => {
         if (postsLength < response.data.length) {

@@ -5,12 +5,13 @@ import Post from "./Post";
 import ReloadNewPosts from "./ReloadNewPosts";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
-import { getFollows } from "../Service/api";
+import { getFollows, getAllPosts } from "../Service/api";
 import LoadingIcon from "../common/TailSpin";
 import useInterval from "use-interval";
 
 export default function Posts({ func, param }) {
   const [post, setPost] = useState([]);
+  const [allPosts, setAllPosts] = useState(0);
   const { reload, setReload } = useContext(UserContext);
   const [follows, setFollows] = useState([]);
   const [hasMorePosts, setHasMorePosts] = useState(true);
@@ -48,6 +49,14 @@ export default function Posts({ func, param }) {
     getFollows().then((p) => setFollows(p.data));
   }, [reload]);
 
+  useEffect(() => {
+    getAllPosts()
+      .catch((response) => console.log(response))
+      .then((response) => {
+        setAllPosts(response.data.length);
+      });
+  }, [reload]);
+
   function verifyNoPost() {
     if (follows.length === 0) {
       return "You don't follow anyone yet. Search for new friends!";
@@ -65,9 +74,6 @@ export default function Posts({ func, param }) {
       .then((response) => {
         if (response.data.length < 10) {
           setHasMorePosts(false);
-          setPage(1);
-        } else {
-          setPage(page + 1);
         }
 
         setPost([...post, ...response.data]);
@@ -78,7 +84,7 @@ export default function Posts({ func, param }) {
     <NoPosts>{verifyNoPost()}</NoPosts>
   ) : (
     <Wrapper>
-      <ReloadNewPosts postsLength={post.length} />
+      <ReloadNewPosts postsLength={allPosts} />
 
       <InfiniteScroll
         dataLength={post.length}

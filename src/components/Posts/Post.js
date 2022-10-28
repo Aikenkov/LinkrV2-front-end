@@ -92,6 +92,7 @@ export default function Post({ post }) {
           <strong>{localUser.username === sharer ? "you" : sharer}</strong>
         </h3>
       </ShareInfo>
+
       <PostContainer margin={sharer}>
         <div>
           <Link to={`/user/${user_id}`}>
@@ -154,6 +155,7 @@ export default function Post({ post }) {
           )}
         </span>
       </PostContainer>
+      
       <PostCommentsContainer open={openComment}>
         {postComments.map((comment, i) => {
           return <PostComment key={i} comment={comment} post_user={user_id} />;

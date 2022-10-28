@@ -36,9 +36,6 @@ export default function UserPosts() {
         })
     }, []);
 
-
-
-
     function following(res){
         if(res === 'follow'){
             const body = {
