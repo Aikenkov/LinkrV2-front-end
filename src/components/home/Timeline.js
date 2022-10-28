@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import NewPost from "./NewPost";
 import Posts from "../Posts/Posts";
-import { getTimeline, getSearchUsers, getSearchFollowed } from "../Service/api";
+import { getTimeline, getSearchUsers, getFollowedUser } from "../Service/api";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DebounceInput } from "react-debounce-input";
@@ -28,7 +28,7 @@ function Search() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        getSearchFollowed()
+        getFollowedUser()
             .then((res) => {
                 setFollowing(res.data);
             })

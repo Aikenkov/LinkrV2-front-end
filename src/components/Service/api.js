@@ -109,10 +109,7 @@ export async function getFollowing(id) {
     return promise;
 }
 export async function getFollowedUser() {
-
     const config = createHeaders();
-
-
     const promise = await axios.get(`${URL}/followed`, config);
     return promise;
 }
@@ -137,11 +134,5 @@ export async function getPostComments(post_id) {
 export async function insertComments(body) {
     const config = createHeaders();
     const promise = await axios.post(`${URL}/comments`, body, config);
-    return promise;
-}
-
-export function getSearchFollowed() {
-    const config = createHeaders();
-    const promise = axios.get(`${URL}/followed`, config);
     return promise;
 }
