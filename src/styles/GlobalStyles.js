@@ -5,7 +5,6 @@ const GlobalStyles = createGlobalStyle`
    v2.0 | 20110126
    License: none (public domain)
 */
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -25,7 +24,9 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -54,34 +55,22 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
-
   //-----------------------------------------------------------------------------
-
-
 a{
     text-decoration: none;
 }
-
 body{
     background-color: var(--main-color);
 	font-family: 'Lato', sans-serif;
-
 }
-
 *{ 
 	box-sizing: border-box;
     margin: 0;
-
     //fonts
     
-    //font-family: 'Oswald', sans-serif;
-    //font-family: 'Passion One', cursive;
     font-family: 'Lato', sans-serif;
 
     //colors
-
     --main-color: #333333;
     --heavy-background: #171717;
     --light-background: #EFEFEF;
@@ -89,16 +78,7 @@ body{
     --heavy-text: #FFFFFF;
     --liked-heart: #AC0000;
     --likes-text: #505050;
-
     
-
-
-
 }
-
-body {
-
-}
-
 `;
 export default GlobalStyles;

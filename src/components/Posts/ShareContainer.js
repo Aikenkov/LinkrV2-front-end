@@ -1,32 +1,36 @@
 import { React, useContext, useState } from "react";
 import UserContext from "../contexts/userContexts";
-import { deletePost } from "../Service/api";
+import { sharePost } from "../Service/api";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
+export default function ShareContainer({
+  modalIsOpenShare,
+  setIsOpenShare,
+  id,
+}) {
   const { reload, setReload } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpenShare(false);
   }
 
-  function deletePostConfirm() {
+  function sharePostConfirm() {
     setLoading(true);
 
-    deletePost(id)
+    sharePost(id)
       .catch((response) => {
         console.log(response);
-        setIsOpen(false);
-        toast.error("Não foi possível excluir o post!");
+        setIsOpenShare(false);
+        toast.error("Você já compartilhou este post!");
       })
       .then(() => {
-        setIsOpen(false);
-        setReload(!reload);
+        setIsOpenShare(false);
+        setReload(reload => reload +1);
       });
   }
 
@@ -34,7 +38,7 @@ export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
     <>
       <ToastContainer />
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={modalIsOpenShare}
         onRequestClose={closeModal}
         style={customStyles}
         ariaHideApp={false}
@@ -45,11 +49,17 @@ export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
           </Confirm>
         ) : (
           <Confirm>
-            <span>Are you sure you want to delete this post?</span>
+            <span>Do you want to re-post this link?</span>
 
             <div>
-              <ButtonNo onClick={closeModal}>No, go back</ButtonNo>
-              <ButtonYes onClick={deletePostConfirm}>Yes, delete it</ButtonYes>
+              <ButtonNo onClick={closeModal}>No, cancel</ButtonNo>
+              <ButtonYes
+                onClick={() => {
+                  sharePostConfirm();
+                }}
+              >
+                Yes, share!
+              </ButtonYes>
             </div>
           </Confirm>
         )}
@@ -74,7 +84,7 @@ const customStyles = {
   overlay: { zIndex: 5 },
 };
 
-const Confirm = styled.h1`
+const Confirm = styled.div`
   font-family: Lato;
   font-size: 34px;
   font-weight: 700;

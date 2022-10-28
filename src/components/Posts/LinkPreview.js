@@ -41,6 +41,7 @@ const Metadata = styled.div`
   margin-top: 10px;
   padding: 20px 19px;
   line-height: 19px;
+
   h3 {
     font-size: 11px;
     color: #b7b7b7;
@@ -53,6 +54,7 @@ const Metadata = styled.div`
     direction: ltr;
     max-height: 65px;
   }
+
   h6 {
     font-size: 16px;
     color: #cecece;
@@ -61,6 +63,7 @@ const Metadata = styled.div`
     text-overflow: ellipsis;
     direction: ltr;
   }
+  
   h5 {
     font-size: 11px;
     color: #cecece;
