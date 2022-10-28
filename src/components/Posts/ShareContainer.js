@@ -42,7 +42,7 @@ export default function ShareContainer({
                 onClick={() => {
                   sharePost(id);
                   setIsOpenShare(false);
-                  setReload(reload + 1);
+                  setReload(reload => reload +1);
                 }}
               >
                 Yes, share!
