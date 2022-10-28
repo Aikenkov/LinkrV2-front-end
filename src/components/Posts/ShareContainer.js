@@ -10,9 +10,8 @@ import styled from "styled-components";
 export default function ShareContainer({
   modalIsOpenShare,
   setIsOpenShare,
-  id
+  id,
 }) {
-
   const { reload, setReload } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
 
@@ -27,6 +26,7 @@ export default function ShareContainer({
         isOpen={modalIsOpenShare}
         onRequestClose={closeModal}
         style={customStyles}
+        ariaHideApp={false}
       >
         {loading ? (
           <Confirm>
@@ -34,11 +34,19 @@ export default function ShareContainer({
           </Confirm>
         ) : (
           <Confirm>
-            <h1>Do you want to re-post this link?</h1>
+            <span>Do you want to re-post this link?</span>
 
             <div>
               <ButtonNo onClick={closeModal}>No, cancel</ButtonNo>
-              <ButtonYes onClick={() => {sharePost(id);setIsOpenShare(false); setReload(reload + 1)}}>Yes, share!</ButtonYes>
+              <ButtonYes
+                onClick={() => {
+                  sharePost(id);
+                  setIsOpenShare(false);
+                  setReload(reload + 1);
+                }}
+              >
+                Yes, share!
+              </ButtonYes>
             </div>
           </Confirm>
         )}
@@ -60,9 +68,10 @@ const customStyles = {
     borderRadius: "50px",
     backgroundColor: "#333333",
   },
+  overlay: { zIndex: 5 },
 };
 
-const Confirm = styled.h1`
+const Confirm = styled.div`
   font-family: Lato;
   font-size: 34px;
   font-weight: 700;
@@ -71,7 +80,7 @@ const Confirm = styled.h1`
   justify-content: center;
   align-items: center;
 
-  h1 {
+  span {
     margin-top: 20px;
     color: #ffffff;
     width: 350px;

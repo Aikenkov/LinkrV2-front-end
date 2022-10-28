@@ -156,7 +156,7 @@ const TextInput = styled.div`
 const Wrapper = styled.div`
   display: flex;
   position: fixed;
-  z-index: 2;
+  z-index: 4;
   left: 0;
   top: 0;
   justify-content: space-between;
