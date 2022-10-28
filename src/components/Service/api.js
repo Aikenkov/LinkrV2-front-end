@@ -131,3 +131,9 @@ export async function insertComments(body) {
     const promise = await axios.post(`${URL}/comments`, body, config);
     return promise;
 }
+
+export function getSearchFollowed() {
+    const config = createHeaders();
+    const promise = axios.get(`${URL}/followed`, config);
+    return promise;
+}

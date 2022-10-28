@@ -14,6 +14,7 @@ function App() {
     const localStorageUser = JSON.parse(localStorage.getItem("userLinkr"));
     const [loggedUser, setLoggedUser] = useState(localStorageUser);
     const [reload, setReload] = useState(0);
+    const [following, setFollowing] = useState([]);
 
     const [users, setUsers] = useState();
     return (
@@ -25,6 +26,8 @@ function App() {
                     setLoggedUser,
                     reload,
                     setReload,
+                    following,
+                    setFollowing,
                 }}
             >
                 <GlobalStyles />
