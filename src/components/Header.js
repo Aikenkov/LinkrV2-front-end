@@ -123,7 +123,7 @@ function Search(){
                       {usersFound.map((user, i)=>{
                         return(
                           <FoundUser key={i} onClick={()=>{redirectUser(user)}}>
-                           <img src={user.picture_uri}/> {user.username}
+                           <img src={user.picture_uri}/> {user.username} <TextFollowing> {user.type}</TextFollowing>
                           </FoundUser>
                         )
                       })}
@@ -142,6 +142,17 @@ function Search(){
   );
 
 }
+const TextFollowing = styled.div`
+    font-family: Lato;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #C5C5C5;
+  margin-left: 10px ;
+
+`
 const TextInput = styled.div`
     margin-bottom: 12px;
 
