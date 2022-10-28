@@ -19,7 +19,13 @@ function App() {
     return (
         <>
             <UserContext.Provider
-                value={{ users, setUsers, setLoggedUser, reload, setReload }}
+                value={{
+                    users,
+                    setUsers,
+                    setLoggedUser,
+                    reload,
+                    setReload,
+                }}
             >
                 <GlobalStyles />
                 <Routes location={location} key={location.pathname}>

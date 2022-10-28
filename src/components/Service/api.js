@@ -72,12 +72,14 @@ export function deletePost(id) {
 }
 export function deleteFollow(body) {
     const config = createHeaders();
-    
-    const promise = axios.delete(`${URL}/follow`, {data: body, headers: config.headers});
+
+    const promise = axios.delete(`${URL}/follow`, {
+        data: body,
+        headers: config.headers,
+    });
 
     return promise;
 }
-
 
 export function getTrending() {
     const config = createHeaders();
@@ -87,7 +89,6 @@ export function getTrending() {
 
 export function editPost(body, id) {
     const config = createHeaders();
-
     const promise = axios.put(`${URL}/posts/${id}`, body, config);
     return promise;
 }
@@ -103,10 +104,7 @@ export async function getPostLikes(post_id) {
     return promise;
 }
 export async function getFollowing(id) {
-
     const config = createHeaders();
-
-
     const promise = await axios.get(`${URL}/follow/${id}`, config);
     return promise;
 }
