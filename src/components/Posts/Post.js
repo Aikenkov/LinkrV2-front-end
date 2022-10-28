@@ -148,7 +148,7 @@ export default function Post({ post }) {
 const PostCommentsContainer = styled.div`
   height: fit-content;
   width: 100%;
-  z-index: 0;
+  z-index: -1;
   border-radius: 0 0 16px 16px;
   background-color: #1e1e1e;
   transition: all ease-in 0.5s;
@@ -237,7 +237,7 @@ const PostContainer = styled.div`
       width: 85%;
     }
   }
-  
+
   @media (min-width: 768px) and (max-width: 1024px) {
     > span {
       width: 90%;

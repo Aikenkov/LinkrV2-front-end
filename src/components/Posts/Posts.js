@@ -7,11 +7,10 @@ import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 import LoadingIcon from "../common/TailSpin";
 
-export default function Posts({ func, param }) {
+export default function Posts({ func, param, refreshPage, setRefreshPage }) {
   const [post, setPost] = useState([]);
-  const [hasMorePosts, setHasMorePosts] = useState(true);
-
   const { reload, setReload } = useContext(UserContext);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
@@ -33,19 +32,20 @@ export default function Posts({ func, param }) {
 
         if (response.data.length < 10) {
           setHasMorePosts(false);
-        }
+        } 
       });
   }, [reload]);
 
   function loadMorePosts(page) {
     func(page)
       .catch((response) => {
-        console.log("erro", response);
+        console.log(response);
       })
-      .then(async (response) => {
+      .then((response) => {
         if (response.data.length < 10) {
           setHasMorePosts(false);
         }
+
         setPost([...post, ...response.data]);
       });
   }
@@ -61,14 +61,14 @@ export default function Posts({ func, param }) {
         loadMore={loadMorePosts}
         hasMore={hasMorePosts}
         loader={
-          <Loading>
+          <Loading key={0}>
             <LoadingIcon />
-            <h6>Loading more posts...</h6>
+            Loading more posts...
           </Loading>
         }
       >
-        {post.map((posts) => (
-          <Post key={posts.id} post={posts} />
+        {post.map((posts, index) => (
+          <Post key={index} post={posts} />
         ))}
       </InfiniteScroll>
     </Wrapper>
@@ -114,6 +114,7 @@ const Loading = styled.h5`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 0;
 
   h6 {
     margin-top: -10px;

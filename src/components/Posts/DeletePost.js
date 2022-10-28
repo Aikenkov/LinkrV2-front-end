@@ -37,6 +37,7 @@ export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         style={customStyles}
+        ariaHideApp={false}
       >
         {loading ? (
           <Confirm>
@@ -44,7 +45,7 @@ export default function ModalContainer({ modalIsOpen, setIsOpen, id }) {
           </Confirm>
         ) : (
           <Confirm>
-            <h1>Are you sure you want to delete this post?</h1>
+            <span>Are you sure you want to delete this post?</span>
 
             <div>
               <ButtonNo onClick={closeModal}>No, go back</ButtonNo>
@@ -68,8 +69,9 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     borderRadius: "50px",
-    backgroundColor: "#333333"
+    backgroundColor: "#333333",
   },
+  overlay: { zIndex: 5 },
 };
 
 const Confirm = styled.h1`
@@ -81,7 +83,7 @@ const Confirm = styled.h1`
   justify-content: center;
   align-items: center;
 
-  h1 {
+  span {
     margin-top: 20px;
     color: #ffffff;
     width: 350px;

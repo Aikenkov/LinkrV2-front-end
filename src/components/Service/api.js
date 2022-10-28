@@ -11,7 +11,7 @@ function createHeaders() {
 }
 
 //const URL = "https://linkr-back-deploy.herokuapp.com";
-const URL = "http://localhost:4000";
+const URL = "http://localhost:5000";
 
 export function postSignUp(body) {
   const promise = axios.post(`${URL}/signup`, body);
@@ -31,11 +31,20 @@ export function postPublish(body) {
 }
 
 export function getTimeline(page) {
+  if (page === undefined) {
+    page = 0;
+  }
   const config = createHeaders();
-
   const promise = axios.get(`${URL}/timeline/?page=${page}`, config);
   return promise;
 }
+
+// export function getTimeline() {
+//   const config = createHeaders();
+
+//   const promise = axios.get(`${URL}/timeline`, config);
+//   return promise;
+// }
 
 export function getSearchUsers(name) {
   const config = createHeaders();
