@@ -1,13 +1,12 @@
 import { useEffect, useState, React, useContext } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfiniteScroll from "react-infinite-scroller";
 import Post from "./Post";
 import ReloadNewPosts from "./ReloadNewPosts";
 import styled from "styled-components";
 import UserContext from "../contexts/userContexts";
 import { getFollows, getAllPosts } from "../Service/api";
 import LoadingIcon from "../common/TailSpin";
-import useInterval from "use-interval";
 
 export default function Posts({ func, param }) {
   const [post, setPost] = useState([]);
@@ -15,17 +14,9 @@ export default function Posts({ func, param }) {
   const { reload, setReload } = useContext(UserContext);
   const [follows, setFollows] = useState([]);
   const [hasMorePosts, setHasMorePosts] = useState(true);
-  const [page, setPage] = useState(1);
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
-
-  useInterval(() => {
-    if (window.scrollY === 0) {
-      setHasMorePosts(true);
-      setPage(1);
-    }
-  }, 5000);
 
   useEffect(() => {
     param = param ? param : 0;
@@ -67,7 +58,7 @@ export default function Posts({ func, param }) {
     }
   }
 
-  function loadMorePosts() {
+  function loadMorePosts(page) {
     func(page)
       .catch((response) => {
         console.log(response);
@@ -75,9 +66,6 @@ export default function Posts({ func, param }) {
       .then((response) => {
         if (response.data.length < 10) {
           setHasMorePosts(false);
-          setPage(1);
-        } else {
-          setPage(page + 1);
         }
 
         setPost([...post, ...response.data]);
@@ -91,8 +79,8 @@ export default function Posts({ func, param }) {
       <ReloadNewPosts postsLength={allPosts} />
 
       <InfiniteScroll
-        dataLength={post.length}
-        next={loadMorePosts}
+        pageStart={0}
+        loadMore={loadMorePosts}
         hasMore={hasMorePosts}
         loader={
           <Loading key={0}>

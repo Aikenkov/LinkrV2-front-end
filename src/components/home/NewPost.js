@@ -34,7 +34,7 @@ export default function NewPost() {
     postPublish(form)
       .then((res) => {
         setIsLoading(false);
-        setReload(reload + 1);
+        setReload(reload => reload+ 1);
         setForm({
           link: "",
           text: "",

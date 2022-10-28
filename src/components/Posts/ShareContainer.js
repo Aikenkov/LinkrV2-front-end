@@ -1,6 +1,6 @@
 import { React, useContext, useState } from "react";
 import UserContext from "../contexts/userContexts";
-import { deletePost, sharePost } from "../Service/api";
+import { sharePost } from "../Service/api";
 import Modal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
@@ -17,6 +17,21 @@ export default function ShareContainer({
 
   function closeModal() {
     setIsOpenShare(false);
+  }
+
+  function sharePostConfirm() {
+    setLoading(true);
+
+    sharePost(id)
+      .catch((response) => {
+        console.log(response);
+        setIsOpenShare(false);
+        toast.error("Você já compartilhou este post!");
+      })
+      .then(() => {
+        setIsOpenShare(false);
+        setReload(reload => reload +1);
+      });
   }
 
   return (
@@ -40,9 +55,7 @@ export default function ShareContainer({
               <ButtonNo onClick={closeModal}>No, cancel</ButtonNo>
               <ButtonYes
                 onClick={() => {
-                  sharePost(id);
-                  setIsOpenShare(false);
-                  setReload(reload => reload +1);
+                  sharePostConfirm();
                 }}
               >
                 Yes, share!
