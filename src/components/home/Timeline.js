@@ -203,9 +203,7 @@ const FoundUser = styled.div`
   }
 `;
 const Wrapper = styled.div`
-  width: 40vw;
-  max-width: 611px;
-  width: 100%;
+  width: 611px;
   margin-right: 25px;
   margin-top: 125px;
 
@@ -215,10 +213,6 @@ const Wrapper = styled.div`
     margin-left: 17px;
     font-weight: 700;
     color: var(--heavy-text);
-  }
-
-  @media only screen and (max-width: 1023px) and (min-width: 768px) {
-    width: 60vw;
   }
 
   @media only screen and (max-width: 767px) {

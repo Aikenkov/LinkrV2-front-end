@@ -155,7 +155,7 @@ export default function Post({ post }) {
           )}
         </span>
       </PostContainer>
-      
+
       <PostCommentsContainer open={openComment}>
         {postComments.map((comment, i) => {
           return <PostComment key={i} comment={comment} post_user={user_id} />;
@@ -200,8 +200,7 @@ const Img = styled.img`
 `;
 
 const PostContainer = styled.div`
-  width: 100%;
-  max-width: 611px;
+  width: 611px;
   height: fit-content;
   background-color: #171717;
   border-radius: 16px;
