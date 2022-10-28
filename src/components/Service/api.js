@@ -10,8 +10,8 @@ function createHeaders() {
   return config;
 }
 
-const URL = "https://linkr-back-deploy.herokuapp.com";
-//const URL = "http://localhost:4000";
+//const URL = "https://linkr-back-deploy.herokuapp.com";
+const URL = "http://localhost:4000";
 
 export function postSignUp(body) {
   const promise = axios.post(`${URL}/signup`, body);
@@ -148,8 +148,7 @@ export async function insertComments(body) {
 
 export function sharePost(post_id) {
   const config = createHeaders();
-  const promise = axios.post(`${URL}/share/${post_id}`, {}, config);
-  return promise;
+  return axios.post(`${URL}/share/${post_id}`, {}, config);
 }
 
 export function getSharesNumber(post_id) {

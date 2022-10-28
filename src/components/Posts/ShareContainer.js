@@ -22,17 +22,20 @@ export default function ShareContainer({
   function sharePostConfirm() {
     setLoading(true);
 
-    sharePost(id)
-      .catch((response) => {
-        console.log(response);
-        setIsOpenShare(false);
-        toast.error("Você já compartilhou este post!");
-      })
-      .then(() => {
-        setIsOpenShare(false);
-        setReload(reload => reload +1);
-        window.location.reload(false);
-      });
+    const promisse = sharePost(id);
+    promisse.catch((response) => {
+      console.log(response);
+      setIsOpenShare(false);
+      toast.error("Você já compartilhou este post!");
+      console.log("nao foi")
+    });
+    promisse.then((p) => {
+      setIsOpenShare(false);
+      console.log("foi");
+      setReload(reload => reload +1);
+      window.location.reload();
+    });
+
   }
 
   return (

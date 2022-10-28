@@ -17,6 +17,7 @@ export default function Posts({ func, param }) {
   const [message, setMessage] = useState(
     <ThreeDots color={"#B7B7B7"} height={70} width={50} />
   );
+  console.log(post.length);
 
   useEffect(() => {
     param = param ? param : '';
