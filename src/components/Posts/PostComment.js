@@ -8,6 +8,7 @@ export default function PostComment({ comment, post_user }) {
     const [infoText, setInfoText] = useState("");
     const [followingUser, setFollowingUser] = useState(false);
     const { following } = useContext(UserContext);
+    const { reload, setReload } = useContext(UserContext);
 
     useEffect(() => {
         if (following.length > 0) {
@@ -19,7 +20,7 @@ export default function PostComment({ comment, post_user }) {
                 setFollowingUser(true);
             }
         }
-    }, []);
+    }, [reload]);
 
     useEffect(() => {
         if (followingUser) {

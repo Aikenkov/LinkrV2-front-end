@@ -63,9 +63,6 @@ export default function Post({ post }) {
       setEditText(text);
     }
   }
-  function shareIdPost() {
-    setIsOpenShare(true);
-  }
 
   return (
     <>
